@@ -1,58 +1,9 @@
 #include <numeric>
-#include "opencv2/opencv.hpp"
+#include "../include/main.h"
+#include "../include/threshholder.h"
 
 using namespace std;
 using namespace cv;
-
-/**
- * Threshhold the image in HSV using CUDA GPU optimization.
- *
- * @param in The matrix to to threshhold.
- * @param gBlur The gaussian blur to apply to the matrix before threshholding.
- * @param lowerHSV The lower bound on HSV values.
- * @param upperHSV The upper bound on HSV values.
- * @return A single channel matrix where white is within the threshhold and black is not.
- */
-Mat1b threshholdWithCUDA(const Mat &in, const Ptr<cuda::Filter> &gBlur, const Vec3b &lowerHSV, const Vec3b &upperHSV);
-
-/**
- * Get the largest contour in an image.
- *
- * @param in The matrix to find contours in.
- * @param mode The mode of contour approximation to use, either CHAIN_APPROX_SIMPLE or CHAIN_APPROX_NONE.
- * @return a vector of the points in the contour.
- */
-vector<Point2i> getLargestContour(const Mat1b &in, const int &mode);
-
-/**
- *
- * @param contour
- * @param width
- * @param height
- * @return A vector of 4 corners, in order top left, top right, bottom left, bottom right
- */
-vector<Point2f> getCorners(const vector<Point2i> &contour, const int &width, const int &height);
-
-/**
- * Get the points in a list of points closest to the edge of the screen.
- * @param contour The list of points
- * @param width The screen width, in pixels
- * @param height The screen height, in pixels.
- * @return A vector of 4 corners, in order top left, top right, bottom left, bottom right
- */
-bool checkCorners(const vector<Point2f> &corners, const int &width, const int &height, const int &minDiag=30, const int &border=0);
-
-/**
- * Get the position and rotation of the camera.
- * @param pictureCorners The 4 corners of the object as detected by the camera.
- * @param objectCorners The absolute, 3D position of the corners of the actual object.
- * @param cameraMatrix The matrix describing how the camera distorts images.
- * @param distortionCoefficients The matrix of coefficients for how the camera is distorted.
- * @return A 4x4 matrix with top-left 3x3 describing the rotation of the camera and the right column giving x,y,z position.
- */
-Mat1f getCameraPose(const vector<Point2f> &pictureCorners, const vector<Point3f> &objectCorners,
-                    const Mat1f &cameraMatrix,
-                    const Mat1f &distortionCoefficients);
 
 /**
  * The upper and lower threshhold bounds.
@@ -82,7 +33,7 @@ int main(int argc, char* argv[]) {
 	Mat3b frame, goodFrame;
 	Mat cameraMatrix, distCoeff;
 	Mat1b threshed;
-	Ptr<cuda::Filter> gBlur = cuda::createGaussianFilter(CV_8UC3,CV_8UC3, Size(5,5), 0, 0);
+	Threshholder threshholder(cuda::createGaussianFilter(CV_8UC3,CV_8UC3, Size(5,5), 0, 0), Vec3b(low_h, low_s, low_v), Vec3b(high_h, high_s, high_v));
 	vector<Point> cont;
 	vector<Point2f> points(4);
 	int width, height;
@@ -117,7 +68,7 @@ int main(int argc, char* argv[]) {
 			goodFrame = frame.clone();
 		}
 
-		threshed = threshholdWithCUDA(goodFrame, gBlur, Vec3b(low_h, low_s, low_v), Vec3b(high_h, high_s, high_v));
+		threshed = threshholder.threshhold(goodFrame);
 		cont = getLargestContour(threshed, CHAIN_APPROX_SIMPLE);
 
 		if (!cont.empty()) {
@@ -131,26 +82,6 @@ int main(int argc, char* argv[]) {
 		imshow("Video Capture", goodFrame);
 	}
 	return 0;
-}
-
-/**
- * Threshhold the image in HSV using CUDA GPU optimization.
- *
- * @param in The matrix to to threshhold.
- * @param gBlur The gaussian blur to apply to the matrix before threshholding.
- * @param lowerHSV The lower bound on HSV values.
- * @param upperHSV The upper bound on HSV values.
- * @return A single channel matrix where white is within the threshhold and black is not.
- */
-Mat1b threshholdWithCUDA(const Mat &in, const Ptr<cuda::Filter> &gBlur, const Vec3b &lowerHSV, const Vec3b &upperHSV){
-	cuda::GpuMat mat;
-	Mat out;
-	mat.upload(in);
-	cuda::cvtColor(mat,mat,COLOR_BGR2HSV);
-	gBlur->apply(mat,mat);
-	mat.download(out);
-	inRange(out, lowerHSV, upperHSV, out);
-	return out;
 }
 
 /**
