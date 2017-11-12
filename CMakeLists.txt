@@ -13,7 +13,11 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 include_directories(${PROJECT_BINARY_DIR})
 include_directories(${PROJECT_SOURCE_DIR})
 
-set(SOURCE_FILES ${PROJECT_SOURCE_DIR}/main.cpp ${PROJECT_SOURCE_DIR}/threshholder.cpp ${PROJECT_BINARY_DIR}/threshholder.h)
+set(SOURCE_FILES ${PROJECT_SOURCE_DIR}/main.cpp ${PROJECT_SOURCE_DIR}/threshholder.cpp
+		${PROJECT_BINARY_DIR}/threshholder.h ${PROJECT_SOURCE_DIR}/contour_finder.cpp
+		${PROJECT_SOURCE_DIR}/corner_finder.cpp ${PROJECT_BINARY_DIR}/corner_finder.h
+		${PROJECT_SOURCE_DIR}/corner_checker.cpp ${PROJECT_BINARY_DIR}/corner_checker.h
+		${PROJECT_SOURCE_DIR}/pose_estimator.cpp ${PROJECT_BINARY_DIR}/pose_estimator.h)
 
 add_executable(jetson_vision ${SOURCE_FILES})
 

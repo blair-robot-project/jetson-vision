@@ -12,7 +12,7 @@ using namespace cv;
  * @param in The matrix to to threshhold.
  * @return A single channel matrix where white is within the threshhold and black is not.
  */
-Mat1b Threshholder::threshhold(const Mat &in){
+Mat1b threshholder::threshhold(const Mat &in){
 	gpuMat.upload(in);
 	cuda::cvtColor(gpuMat,gpuMat,COLOR_BGR2HSV);
 	gBlur->apply(gpuMat,gpuMat);
@@ -27,7 +27,7 @@ Mat1b Threshholder::threshhold(const Mat &in){
  * @param lowerHSV The lower bound on HSV values.
  * @param upperHSV The upper bound on HSV values.
  */
-void Threshholder::setLimits(const Vec3b &lowerHSV, const Vec3b &upperHSV){
+void threshholder::set_limits(const Vec3b &lowerHSV, const Vec3b &upperHSV){
 	upperBound = upperHSV;
 	lowerBound = lowerHSV;
 }
@@ -39,7 +39,7 @@ void Threshholder::setLimits(const Vec3b &lowerHSV, const Vec3b &upperHSV){
  * @param lowerHSV The lower bound on HSV values.
  * @param upperHSV The upper bound on HSV values.
  */
-Threshholder::Threshholder(const Ptr<cuda::Filter> &gBlur, const Vec3b &lowerHSV, const Vec3b &upperHSV){
+threshholder::threshholder(const Ptr<cuda::Filter> &gBlur, const Vec3b &lowerHSV, const Vec3b &upperHSV){
 	this->gBlur = gBlur;
 	this->lowerBound = lowerHSV;
 	this->upperBound = upperHSV;

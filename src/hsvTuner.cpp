@@ -21,13 +21,14 @@ vector<Point2i> getLargestContour(const Mat1b &in, const int &mode);
  * @param height
  * @return A vector of 4 corners, in order top left, top right, bottom left, bottom right
  */
-vector<Point2f> getCorners(const vector<Point2i> &contour, const int &width, const int &height);
+vector<Point2f> get_corners(const vector<Point2i> &contour, const int &width, const int &height);
 
-bool checkCorners(const vector<Point2f> &corners, const int &width, const int &height, const int &minDiag=30, const int &border=0);
+bool check_corners(const vector<Point2f> &corners, const int &width, const int &height, const int &minDiag = 30,
+                   const int &border = 0);
 
-Mat1f getCameraPose(const vector<Point2f> &pictureCorners, const vector<Point3f> &objectCorners,
-                    const Mat1f &cameraMatrix,
-                    const Mat1f &distortionCoefficients);
+Mat1f get_camera_pose(const vector<Point2f> &pictureCorners, const vector<Point3f> &objectCorners,
+                      const Mat1f &cameraMatrix,
+                      const Mat1f &distortionCoefficients);
 
 int low_h=40, low_s=135, low_v=55;
 int high_h=60, high_s=255, high_v=160;
@@ -93,9 +94,9 @@ int main(int argc, char* argv[]) {
 		cont = getLargestContour(threshed, CHAIN_APPROX_SIMPLE);
 
 		if (!cont.empty()) {
-			points = getCorners(cont, width, height);
-			if(checkCorners(points,width,height,30,0)){
-				cout << "M = "<< endl << " "  << getCameraPose(points, objPoints, cameraMatrix, distCoeff) << endl << endl;
+			points = get_corners(cont, width, height);
+			if(check_corners(points, width, height, 30, 0)){
+				cout << "M = "<< endl << " "  << get_camera_pose(points, objPoints, cameraMatrix, distCoeff) << endl << endl;
 			}
 		}
 
@@ -138,7 +139,7 @@ vector<Point2i> getLargestContour(const Mat1b &in, const int &mode){
  * @param height
  * @return A vector of 4 corners, in order top left, top right, bottom left, bottom right
  */
-vector<Point2f> getCorners(const vector<Point2i> &contour, const int &width, const int &height){
+vector<Point2f> get_corners(const vector<Point2i> &contour, const int &width, const int &height){
 	vector<Point2i> screenCorners = {Point2i(0,0), Point2i(width,0), Point2i(0,height), Point2i(width,height)};
 	vector<Point2f> toRet(4);
 	double minBL = INFINITY, minBR = INFINITY, minTL = INFINITY, minTR = INFINITY;
@@ -163,7 +164,8 @@ vector<Point2f> getCorners(const vector<Point2i> &contour, const int &width, con
 	return toRet;
 }
 
-bool checkCorners(const vector<Point2f> &corners, const int &width, const int &height, const int &minDiag, const int &border){
+bool check_corners(const vector<Point2f> &corners, const int &width, const int &height, const int &minDiag,
+                   const int &border){
 	//Make sure they're unique
 	if(corners[0] == corners[1] || corners[0] == corners[2] || corners[0] == corners[3] || corners[1] == corners[2] ||
 			corners[1] == corners[3] || corners[2] == corners[3]){
@@ -179,9 +181,9 @@ bool checkCorners(const vector<Point2f> &corners, const int &width, const int &h
 	corners[1].x < width-border && corners[3].x < width-border && corners[2].y < height - border && corners[2].y < height - border);
 }
 
-Mat1f getCameraPose(const vector<Point2f> &pictureCorners, const vector<Point3f> &objectCorners,
-                    const Mat1f &cameraMatrix,
-                    const Mat1f &distortionCoefficients){
+Mat1f get_camera_pose(const vector<Point2f> &pictureCorners, const vector<Point3f> &objectCorners,
+                      const Mat1f &cameraMatrix,
+                      const Mat1f &distortionCoefficients){
 	Mat1f rvec, tvec, zyx, final;
 	solvePnP(objectCorners,pictureCorners, cameraMatrix, distortionCoefficients, rvec, tvec);
 	Rodrigues(rvec, zyx);

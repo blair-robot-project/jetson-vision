@@ -9,7 +9,7 @@
 
 using namespace cv;
 
-class Threshholder{
+class threshholder{
 public:
 	/**
 	 * Threshhold the image in HSV using CUDA GPU optimization.
@@ -25,7 +25,7 @@ public:
      * @param lowerHSV The lower bound on HSV values.
      * @param upperHSV The upper bound on HSV values.
 	 */
-	void setLimits(const Vec3b &lowerHSV, const Vec3b &upperHSV);
+	void set_limits(const Vec3b &lowerHSV, const Vec3b &upperHSV);
 
 	/**
 	 * Default constructor
@@ -34,7 +34,7 @@ public:
      * @param lowerHSV The lower bound on HSV values.
      * @param upperHSV The upper bound on HSV values.
 	 */
-	Threshholder(const Ptr<cuda::Filter> &gBlur, const Vec3b &lowerHSV, const Vec3b &upperHSV);
+	threshholder(const Ptr<cuda::Filter> &gBlur, const Vec3b &lowerHSV, const Vec3b &upperHSV);
 
 private:
 	Ptr<cuda::Filter> gBlur;
