@@ -1,0 +1,19 @@
+syntax = "proto2";
+
+package proto;
+
+message CameraPose {
+    required double x = 1;
+    required double y = 2;
+    required double z = 3;
+    required double rotMatR1C1 = 4;
+    required double rotMatR1C2 = 5;
+    required double rotMatR1C3 = 6;
+    required double rotMatR2C1 = 7;
+    required double rotMatR2C2 = 8;
+    required double rotMatR2C3 = 9;
+    required double rotMatR3C1 = 10;
+    required double rotMatR3C2 = 11;
+    required double rotMatR3C3 = 12;
+    optional int32 navXTime = 13;
+}
