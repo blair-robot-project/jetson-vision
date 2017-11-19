@@ -22,4 +22,4 @@ bash.exe.stackdump
 jetson-vision.iml
 
 #Gradle
-.gradle/
+.gradle
