@@ -17,3 +17,9 @@ cmake-build-debug/
 .metadata/
 .DS_Store
 bash.exe.stackdump
+
+#IDEA files
+jetson-vision.iml
+
+#Gradle
+.gradle/
