@@ -3,9 +3,10 @@ project(jetson_vision)
 
 find_package(OpenCV REQUIRED)
 
-find_package(Protobuf REQUIRED)
-
 set(CMAKE_CXX_STANDARD 11)
+
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
 
 add_library(NavXTimeSync navXTimeSync/AHRS.cpp)
 
@@ -25,3 +26,4 @@ add_executable(jetson_vision ${SOURCE_FILES})
 
 target_link_libraries(jetson_vision ${OpenCV_LIBS})
 target_link_libraries(jetson_vision ${Protobuf_LIBRARIES})
+target_link_libraries(jetson_vision ${CONAN_LIBS})

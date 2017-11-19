@@ -11,8 +11,6 @@
 #include "corner_finder.h"
 #include "corner_checker.h"
 #include "pose_estimator.h"
-#include "numeric"
-#include "../gen/pose.pb.h"
 
 using namespace std;
 using namespace cv;
