@@ -5,7 +5,10 @@
 #ifndef JETSON_VISION_THRESHHOLDER_H
 #define JETSON_VISION_THRESHHOLDER_H
 
-#include "opencv2/opencv.hpp"
+#include "opencv2/core/core.hpp"
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/gpu/gpu.hpp"
 
 using namespace cv;
 
@@ -34,12 +37,12 @@ public:
      * @param lowerHSV The lower bound on HSV values.
      * @param upperHSV The upper bound on HSV values.
 	 */
-	threshholder(const Ptr<cuda::Filter> &gBlur, const Vec3b &lowerHSV, const Vec3b &upperHSV);
+	threshholder(const Ptr<gpu::FilterEngine_GPU> &gBlur, const Vec3b &lowerHSV, const Vec3b &upperHSV);
 
 private:
-	Ptr<cuda::Filter> gBlur;
+	Ptr<gpu::FilterEngine_GPU> gBlur;
 	Vec3b lowerBound, upperBound;
-	cuda::GpuMat gpuMat;
+	gpu::GpuMat gpuMat;
 	Mat mat;
 };
 

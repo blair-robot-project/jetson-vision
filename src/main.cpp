@@ -27,7 +27,7 @@ int main(int argc, char* argv[]) {
 	Mat cameraMatrix, distCoeff;
 	Mat1b threshed;
 	Mat1f poseMat;
-	threshholder threshholder(cuda::createGaussianFilter(CV_8UC3,CV_8UC3, Size(5,5), 0, 0), Vec3b(40, 135, 55),
+	threshholder threshholder(gpu::createGaussianFilter_GPU(CV_8UC3, Size(5,5), 0, 0), Vec3b(40, 135, 55),
 	                          Vec3b(60, 255, 160));
 	contour_finder contourFinder(CHAIN_APPROX_SIMPLE);
 	vector<Point> cont;
@@ -39,14 +39,14 @@ int main(int argc, char* argv[]) {
 	// Note we use here a PAIR socket, only 1 way message
 	zmq::socket_t socket (context, ZMQ_PAIR);
 
-	VideoCapture cap("/media/LinHDD/Videos/my_video-1.mkv");
+//	VideoCapture cap("/media/LinHDD/Videos/my_video-1.mkv");
 
-//	VideoCapture cap(0);
+	VideoCapture cap(0);
 
 //	VideoCapture cap("/media/LinHDD/Images/vision/Screenshot from my_video-1.mkv.png");
 
-	width = static_cast<int>(cap.get(CAP_PROP_FRAME_WIDTH));
-	height = static_cast<int>(cap.get(CAP_PROP_FRAME_HEIGHT));
+	width = static_cast<int>(cap.get(CV_CAP_PROP_FRAME_WIDTH));
+	height = static_cast<int>(cap.get(CV_CAP_PROP_FRAME_HEIGHT));
 
 	corner_finder cornerFinder(width, height);
 	corner_checker cornerChecker(width, height, 30, 20);

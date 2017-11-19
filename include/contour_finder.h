@@ -28,7 +28,7 @@ public:
 	explicit contour_finder(const int &mode);
 
 private:
-	vector<vector<Point2i>> contours;
+	vector<vector<Point2i> > contours;
 	int mode;
 
 	/**
