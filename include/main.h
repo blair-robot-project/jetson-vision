@@ -11,6 +11,10 @@
 #include "corner_finder.h"
 #include "corner_checker.h"
 #include "pose_estimator.h"
+#include <google/protobuf/io/coded_stream.h>
+#include <pose.pb.h>
+#include <pose.pb.cc>
+#include <zmq.hpp>
 
 using namespace std;
 using namespace cv;
