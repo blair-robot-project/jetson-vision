@@ -1,5 +1,5 @@
 [requires]
-Protobuf/3.3.0@memsharded/testing
+Protobuf/2.6.1@memsharded/testing
 zmqcpp/4.1.1@memsharded/stable
 
 [generators]
