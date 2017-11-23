@@ -31,11 +31,16 @@ int main(int argc, char* argv[]) {
 	vector<Point2f> points(4);
 	int width, height;
     CameraPose cameraPose;
+    std::string msg_str;
+    zmq::message_t request;
 
 	//  Prepare our context and socket
 	zmq::context_t context (1);
 	// Note we use here a PAIR socket, only 1 way message
 	zmq::socket_t socket (context, ZMQ_PAIR);
+
+    std::cout << "Connecting to server" << std::endl;
+    socket.connect ("10.4.49.2:5555");
 
 //	VideoCapture cap("/media/LinHDD/Videos/my_video-1.mkv");
 
@@ -92,6 +97,11 @@ int main(int argc, char* argv[]) {
 				cameraPose.set_rotmatr3c1(poseMat.at<double>(2,0));
 				cameraPose.set_rotmatr3c2(poseMat.at<double>(2,1));
 				cameraPose.set_rotmatr3c3(poseMat.at<double>(2,2));
+                cameraPose.SerializeToString(&msg_str);
+                request = zmq::message_t(msg_str.size());
+                memcpy (request.data (), msg_str.c_str(), msg_str.size());
+                std::cout << "Sending Person data ..." << std::endl;
+                socket.send (request);
 			}
 		}
 
