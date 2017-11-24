@@ -90,94 +90,52 @@ class CameraPose : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required double x = 1;
+  // optional double x = 1;
   inline bool has_x() const;
   inline void clear_x();
   static const int kXFieldNumber = 1;
   inline double x() const;
   inline void set_x(double value);
 
-  // required double y = 2;
+  // optional double y = 2;
   inline bool has_y() const;
   inline void clear_y();
   static const int kYFieldNumber = 2;
   inline double y() const;
   inline void set_y(double value);
 
-  // required double z = 3;
+  // optional double z = 3;
   inline bool has_z() const;
   inline void clear_z();
   static const int kZFieldNumber = 3;
   inline double z() const;
   inline void set_z(double value);
 
-  // required double rotMatR1C1 = 4;
-  inline bool has_rotmatr1c1() const;
-  inline void clear_rotmatr1c1();
-  static const int kRotMatR1C1FieldNumber = 4;
-  inline double rotmatr1c1() const;
-  inline void set_rotmatr1c1(double value);
+  // optional double yaw = 4;
+  inline bool has_yaw() const;
+  inline void clear_yaw();
+  static const int kYawFieldNumber = 4;
+  inline double yaw() const;
+  inline void set_yaw(double value);
 
-  // required double rotMatR1C2 = 5;
-  inline bool has_rotmatr1c2() const;
-  inline void clear_rotmatr1c2();
-  static const int kRotMatR1C2FieldNumber = 5;
-  inline double rotmatr1c2() const;
-  inline void set_rotmatr1c2(double value);
+  // optional double pitch = 5;
+  inline bool has_pitch() const;
+  inline void clear_pitch();
+  static const int kPitchFieldNumber = 5;
+  inline double pitch() const;
+  inline void set_pitch(double value);
 
-  // required double rotMatR1C3 = 6;
-  inline bool has_rotmatr1c3() const;
-  inline void clear_rotmatr1c3();
-  static const int kRotMatR1C3FieldNumber = 6;
-  inline double rotmatr1c3() const;
-  inline void set_rotmatr1c3(double value);
+  // optional double roll = 6;
+  inline bool has_roll() const;
+  inline void clear_roll();
+  static const int kRollFieldNumber = 6;
+  inline double roll() const;
+  inline void set_roll(double value);
 
-  // required double rotMatR2C1 = 7;
-  inline bool has_rotmatr2c1() const;
-  inline void clear_rotmatr2c1();
-  static const int kRotMatR2C1FieldNumber = 7;
-  inline double rotmatr2c1() const;
-  inline void set_rotmatr2c1(double value);
-
-  // required double rotMatR2C2 = 8;
-  inline bool has_rotmatr2c2() const;
-  inline void clear_rotmatr2c2();
-  static const int kRotMatR2C2FieldNumber = 8;
-  inline double rotmatr2c2() const;
-  inline void set_rotmatr2c2(double value);
-
-  // required double rotMatR2C3 = 9;
-  inline bool has_rotmatr2c3() const;
-  inline void clear_rotmatr2c3();
-  static const int kRotMatR2C3FieldNumber = 9;
-  inline double rotmatr2c3() const;
-  inline void set_rotmatr2c3(double value);
-
-  // required double rotMatR3C1 = 10;
-  inline bool has_rotmatr3c1() const;
-  inline void clear_rotmatr3c1();
-  static const int kRotMatR3C1FieldNumber = 10;
-  inline double rotmatr3c1() const;
-  inline void set_rotmatr3c1(double value);
-
-  // required double rotMatR3C2 = 11;
-  inline bool has_rotmatr3c2() const;
-  inline void clear_rotmatr3c2();
-  static const int kRotMatR3C2FieldNumber = 11;
-  inline double rotmatr3c2() const;
-  inline void set_rotmatr3c2(double value);
-
-  // required double rotMatR3C3 = 12;
-  inline bool has_rotmatr3c3() const;
-  inline void clear_rotmatr3c3();
-  static const int kRotMatR3C3FieldNumber = 12;
-  inline double rotmatr3c3() const;
-  inline void set_rotmatr3c3(double value);
-
-  // optional int32 navXTime = 13;
+  // optional int32 navXTime = 7;
   inline bool has_navxtime() const;
   inline void clear_navxtime();
-  static const int kNavXTimeFieldNumber = 13;
+  static const int kNavXTimeFieldNumber = 7;
   inline ::google::protobuf::int32 navxtime() const;
   inline void set_navxtime(::google::protobuf::int32 value);
 
@@ -189,24 +147,12 @@ class CameraPose : public ::google::protobuf::Message {
   inline void clear_has_y();
   inline void set_has_z();
   inline void clear_has_z();
-  inline void set_has_rotmatr1c1();
-  inline void clear_has_rotmatr1c1();
-  inline void set_has_rotmatr1c2();
-  inline void clear_has_rotmatr1c2();
-  inline void set_has_rotmatr1c3();
-  inline void clear_has_rotmatr1c3();
-  inline void set_has_rotmatr2c1();
-  inline void clear_has_rotmatr2c1();
-  inline void set_has_rotmatr2c2();
-  inline void clear_has_rotmatr2c2();
-  inline void set_has_rotmatr2c3();
-  inline void clear_has_rotmatr2c3();
-  inline void set_has_rotmatr3c1();
-  inline void clear_has_rotmatr3c1();
-  inline void set_has_rotmatr3c2();
-  inline void clear_has_rotmatr3c2();
-  inline void set_has_rotmatr3c3();
-  inline void clear_has_rotmatr3c3();
+  inline void set_has_yaw();
+  inline void clear_has_yaw();
+  inline void set_has_pitch();
+  inline void clear_has_pitch();
+  inline void set_has_roll();
+  inline void clear_has_roll();
   inline void set_has_navxtime();
   inline void clear_has_navxtime();
 
@@ -217,15 +163,9 @@ class CameraPose : public ::google::protobuf::Message {
   double x_;
   double y_;
   double z_;
-  double rotmatr1c1_;
-  double rotmatr1c2_;
-  double rotmatr1c3_;
-  double rotmatr2c1_;
-  double rotmatr2c2_;
-  double rotmatr2c3_;
-  double rotmatr3c1_;
-  double rotmatr3c2_;
-  double rotmatr3c3_;
+  double yaw_;
+  double pitch_;
+  double roll_;
   ::google::protobuf::int32 navxtime_;
   friend void  protobuf_AddDesc_pose_2eproto();
   friend void protobuf_AssignDesc_pose_2eproto();
@@ -241,7 +181,7 @@ class CameraPose : public ::google::protobuf::Message {
 
 // CameraPose
 
-// required double x = 1;
+// optional double x = 1;
 inline bool CameraPose::has_x() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -265,7 +205,7 @@ inline void CameraPose::set_x(double value) {
   // @@protoc_insertion_point(field_set:proto.CameraPose.x)
 }
 
-// required double y = 2;
+// optional double y = 2;
 inline bool CameraPose::has_y() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -289,7 +229,7 @@ inline void CameraPose::set_y(double value) {
   // @@protoc_insertion_point(field_set:proto.CameraPose.y)
 }
 
-// required double z = 3;
+// optional double z = 3;
 inline bool CameraPose::has_z() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
@@ -313,231 +253,87 @@ inline void CameraPose::set_z(double value) {
   // @@protoc_insertion_point(field_set:proto.CameraPose.z)
 }
 
-// required double rotMatR1C1 = 4;
-inline bool CameraPose::has_rotmatr1c1() const {
+// optional double yaw = 4;
+inline bool CameraPose::has_yaw() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void CameraPose::set_has_rotmatr1c1() {
+inline void CameraPose::set_has_yaw() {
   _has_bits_[0] |= 0x00000008u;
 }
-inline void CameraPose::clear_has_rotmatr1c1() {
+inline void CameraPose::clear_has_yaw() {
   _has_bits_[0] &= ~0x00000008u;
 }
-inline void CameraPose::clear_rotmatr1c1() {
-  rotmatr1c1_ = 0;
-  clear_has_rotmatr1c1();
+inline void CameraPose::clear_yaw() {
+  yaw_ = 0;
+  clear_has_yaw();
 }
-inline double CameraPose::rotmatr1c1() const {
-  // @@protoc_insertion_point(field_get:proto.CameraPose.rotMatR1C1)
-  return rotmatr1c1_;
+inline double CameraPose::yaw() const {
+  // @@protoc_insertion_point(field_get:proto.CameraPose.yaw)
+  return yaw_;
 }
-inline void CameraPose::set_rotmatr1c1(double value) {
-  set_has_rotmatr1c1();
-  rotmatr1c1_ = value;
-  // @@protoc_insertion_point(field_set:proto.CameraPose.rotMatR1C1)
+inline void CameraPose::set_yaw(double value) {
+  set_has_yaw();
+  yaw_ = value;
+  // @@protoc_insertion_point(field_set:proto.CameraPose.yaw)
 }
 
-// required double rotMatR1C2 = 5;
-inline bool CameraPose::has_rotmatr1c2() const {
+// optional double pitch = 5;
+inline bool CameraPose::has_pitch() const {
   return (_has_bits_[0] & 0x00000010u) != 0;
 }
-inline void CameraPose::set_has_rotmatr1c2() {
+inline void CameraPose::set_has_pitch() {
   _has_bits_[0] |= 0x00000010u;
 }
-inline void CameraPose::clear_has_rotmatr1c2() {
+inline void CameraPose::clear_has_pitch() {
   _has_bits_[0] &= ~0x00000010u;
 }
-inline void CameraPose::clear_rotmatr1c2() {
-  rotmatr1c2_ = 0;
-  clear_has_rotmatr1c2();
+inline void CameraPose::clear_pitch() {
+  pitch_ = 0;
+  clear_has_pitch();
 }
-inline double CameraPose::rotmatr1c2() const {
-  // @@protoc_insertion_point(field_get:proto.CameraPose.rotMatR1C2)
-  return rotmatr1c2_;
+inline double CameraPose::pitch() const {
+  // @@protoc_insertion_point(field_get:proto.CameraPose.pitch)
+  return pitch_;
 }
-inline void CameraPose::set_rotmatr1c2(double value) {
-  set_has_rotmatr1c2();
-  rotmatr1c2_ = value;
-  // @@protoc_insertion_point(field_set:proto.CameraPose.rotMatR1C2)
+inline void CameraPose::set_pitch(double value) {
+  set_has_pitch();
+  pitch_ = value;
+  // @@protoc_insertion_point(field_set:proto.CameraPose.pitch)
 }
 
-// required double rotMatR1C3 = 6;
-inline bool CameraPose::has_rotmatr1c3() const {
+// optional double roll = 6;
+inline bool CameraPose::has_roll() const {
   return (_has_bits_[0] & 0x00000020u) != 0;
 }
-inline void CameraPose::set_has_rotmatr1c3() {
+inline void CameraPose::set_has_roll() {
   _has_bits_[0] |= 0x00000020u;
 }
-inline void CameraPose::clear_has_rotmatr1c3() {
+inline void CameraPose::clear_has_roll() {
   _has_bits_[0] &= ~0x00000020u;
 }
-inline void CameraPose::clear_rotmatr1c3() {
-  rotmatr1c3_ = 0;
-  clear_has_rotmatr1c3();
+inline void CameraPose::clear_roll() {
+  roll_ = 0;
+  clear_has_roll();
 }
-inline double CameraPose::rotmatr1c3() const {
-  // @@protoc_insertion_point(field_get:proto.CameraPose.rotMatR1C3)
-  return rotmatr1c3_;
+inline double CameraPose::roll() const {
+  // @@protoc_insertion_point(field_get:proto.CameraPose.roll)
+  return roll_;
 }
-inline void CameraPose::set_rotmatr1c3(double value) {
-  set_has_rotmatr1c3();
-  rotmatr1c3_ = value;
-  // @@protoc_insertion_point(field_set:proto.CameraPose.rotMatR1C3)
+inline void CameraPose::set_roll(double value) {
+  set_has_roll();
+  roll_ = value;
+  // @@protoc_insertion_point(field_set:proto.CameraPose.roll)
 }
 
-// required double rotMatR2C1 = 7;
-inline bool CameraPose::has_rotmatr2c1() const {
+// optional int32 navXTime = 7;
+inline bool CameraPose::has_navxtime() const {
   return (_has_bits_[0] & 0x00000040u) != 0;
 }
-inline void CameraPose::set_has_rotmatr2c1() {
+inline void CameraPose::set_has_navxtime() {
   _has_bits_[0] |= 0x00000040u;
 }
-inline void CameraPose::clear_has_rotmatr2c1() {
-  _has_bits_[0] &= ~0x00000040u;
-}
-inline void CameraPose::clear_rotmatr2c1() {
-  rotmatr2c1_ = 0;
-  clear_has_rotmatr2c1();
-}
-inline double CameraPose::rotmatr2c1() const {
-  // @@protoc_insertion_point(field_get:proto.CameraPose.rotMatR2C1)
-  return rotmatr2c1_;
-}
-inline void CameraPose::set_rotmatr2c1(double value) {
-  set_has_rotmatr2c1();
-  rotmatr2c1_ = value;
-  // @@protoc_insertion_point(field_set:proto.CameraPose.rotMatR2C1)
-}
-
-// required double rotMatR2C2 = 8;
-inline bool CameraPose::has_rotmatr2c2() const {
-  return (_has_bits_[0] & 0x00000080u) != 0;
-}
-inline void CameraPose::set_has_rotmatr2c2() {
-  _has_bits_[0] |= 0x00000080u;
-}
-inline void CameraPose::clear_has_rotmatr2c2() {
-  _has_bits_[0] &= ~0x00000080u;
-}
-inline void CameraPose::clear_rotmatr2c2() {
-  rotmatr2c2_ = 0;
-  clear_has_rotmatr2c2();
-}
-inline double CameraPose::rotmatr2c2() const {
-  // @@protoc_insertion_point(field_get:proto.CameraPose.rotMatR2C2)
-  return rotmatr2c2_;
-}
-inline void CameraPose::set_rotmatr2c2(double value) {
-  set_has_rotmatr2c2();
-  rotmatr2c2_ = value;
-  // @@protoc_insertion_point(field_set:proto.CameraPose.rotMatR2C2)
-}
-
-// required double rotMatR2C3 = 9;
-inline bool CameraPose::has_rotmatr2c3() const {
-  return (_has_bits_[0] & 0x00000100u) != 0;
-}
-inline void CameraPose::set_has_rotmatr2c3() {
-  _has_bits_[0] |= 0x00000100u;
-}
-inline void CameraPose::clear_has_rotmatr2c3() {
-  _has_bits_[0] &= ~0x00000100u;
-}
-inline void CameraPose::clear_rotmatr2c3() {
-  rotmatr2c3_ = 0;
-  clear_has_rotmatr2c3();
-}
-inline double CameraPose::rotmatr2c3() const {
-  // @@protoc_insertion_point(field_get:proto.CameraPose.rotMatR2C3)
-  return rotmatr2c3_;
-}
-inline void CameraPose::set_rotmatr2c3(double value) {
-  set_has_rotmatr2c3();
-  rotmatr2c3_ = value;
-  // @@protoc_insertion_point(field_set:proto.CameraPose.rotMatR2C3)
-}
-
-// required double rotMatR3C1 = 10;
-inline bool CameraPose::has_rotmatr3c1() const {
-  return (_has_bits_[0] & 0x00000200u) != 0;
-}
-inline void CameraPose::set_has_rotmatr3c1() {
-  _has_bits_[0] |= 0x00000200u;
-}
-inline void CameraPose::clear_has_rotmatr3c1() {
-  _has_bits_[0] &= ~0x00000200u;
-}
-inline void CameraPose::clear_rotmatr3c1() {
-  rotmatr3c1_ = 0;
-  clear_has_rotmatr3c1();
-}
-inline double CameraPose::rotmatr3c1() const {
-  // @@protoc_insertion_point(field_get:proto.CameraPose.rotMatR3C1)
-  return rotmatr3c1_;
-}
-inline void CameraPose::set_rotmatr3c1(double value) {
-  set_has_rotmatr3c1();
-  rotmatr3c1_ = value;
-  // @@protoc_insertion_point(field_set:proto.CameraPose.rotMatR3C1)
-}
-
-// required double rotMatR3C2 = 11;
-inline bool CameraPose::has_rotmatr3c2() const {
-  return (_has_bits_[0] & 0x00000400u) != 0;
-}
-inline void CameraPose::set_has_rotmatr3c2() {
-  _has_bits_[0] |= 0x00000400u;
-}
-inline void CameraPose::clear_has_rotmatr3c2() {
-  _has_bits_[0] &= ~0x00000400u;
-}
-inline void CameraPose::clear_rotmatr3c2() {
-  rotmatr3c2_ = 0;
-  clear_has_rotmatr3c2();
-}
-inline double CameraPose::rotmatr3c2() const {
-  // @@protoc_insertion_point(field_get:proto.CameraPose.rotMatR3C2)
-  return rotmatr3c2_;
-}
-inline void CameraPose::set_rotmatr3c2(double value) {
-  set_has_rotmatr3c2();
-  rotmatr3c2_ = value;
-  // @@protoc_insertion_point(field_set:proto.CameraPose.rotMatR3C2)
-}
-
-// required double rotMatR3C3 = 12;
-inline bool CameraPose::has_rotmatr3c3() const {
-  return (_has_bits_[0] & 0x00000800u) != 0;
-}
-inline void CameraPose::set_has_rotmatr3c3() {
-  _has_bits_[0] |= 0x00000800u;
-}
-inline void CameraPose::clear_has_rotmatr3c3() {
-  _has_bits_[0] &= ~0x00000800u;
-}
-inline void CameraPose::clear_rotmatr3c3() {
-  rotmatr3c3_ = 0;
-  clear_has_rotmatr3c3();
-}
-inline double CameraPose::rotmatr3c3() const {
-  // @@protoc_insertion_point(field_get:proto.CameraPose.rotMatR3C3)
-  return rotmatr3c3_;
-}
-inline void CameraPose::set_rotmatr3c3(double value) {
-  set_has_rotmatr3c3();
-  rotmatr3c3_ = value;
-  // @@protoc_insertion_point(field_set:proto.CameraPose.rotMatR3C3)
-}
-
-// optional int32 navXTime = 13;
-inline bool CameraPose::has_navxtime() const {
-  return (_has_bits_[0] & 0x00001000u) != 0;
-}
-inline void CameraPose::set_has_navxtime() {
-  _has_bits_[0] |= 0x00001000u;
-}
 inline void CameraPose::clear_has_navxtime() {
-  _has_bits_[0] &= ~0x00001000u;
+  _has_bits_[0] &= ~0x00000040u;
 }
 inline void CameraPose::clear_navxtime() {
   navxtime_ = 0;

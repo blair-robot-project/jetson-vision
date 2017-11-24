@@ -34,19 +34,13 @@ void protobuf_AssignDesc_pose_2eproto() {
       "pose.proto");
   GOOGLE_CHECK(file != NULL);
   CameraPose_descriptor_ = file->message_type(0);
-  static const int CameraPose_offsets_[13] = {
+  static const int CameraPose_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CameraPose, x_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CameraPose, y_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CameraPose, z_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CameraPose, rotmatr1c1_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CameraPose, rotmatr1c2_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CameraPose, rotmatr1c3_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CameraPose, rotmatr2c1_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CameraPose, rotmatr2c2_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CameraPose, rotmatr2c3_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CameraPose, rotmatr3c1_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CameraPose, rotmatr3c2_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CameraPose, rotmatr3c3_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CameraPose, yaw_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CameraPose, pitch_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CameraPose, roll_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CameraPose, navxtime_),
   };
   CameraPose_reflection_ =
@@ -90,13 +84,10 @@ void protobuf_AddDesc_pose_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\npose.proto\022\005proto\"\363\001\n\nCameraPose\022\t\n\001x\030"
-    "\001 \002(\001\022\t\n\001y\030\002 \002(\001\022\t\n\001z\030\003 \002(\001\022\022\n\nrotMatR1C"
-    "1\030\004 \002(\001\022\022\n\nrotMatR1C2\030\005 \002(\001\022\022\n\nrotMatR1C"
-    "3\030\006 \002(\001\022\022\n\nrotMatR2C1\030\007 \002(\001\022\022\n\nrotMatR2C"
-    "2\030\010 \002(\001\022\022\n\nrotMatR2C3\030\t \002(\001\022\022\n\nrotMatR3C"
-    "1\030\n \002(\001\022\022\n\nrotMatR3C2\030\013 \002(\001\022\022\n\nrotMatR3C"
-    "3\030\014 \002(\001\022\020\n\010navXTime\030\r \001(\005", 265);
+    "\n\npose.proto\022\005proto\"i\n\nCameraPose\022\t\n\001x\030\001"
+    " \001(\001\022\t\n\001y\030\002 \001(\001\022\t\n\001z\030\003 \001(\001\022\013\n\003yaw\030\004 \001(\001\022"
+    "\r\n\005pitch\030\005 \001(\001\022\014\n\004roll\030\006 \001(\001\022\020\n\010navXTime"
+    "\030\007 \001(\005", 126);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "pose.proto", &protobuf_RegisterTypes);
   CameraPose::default_instance_ = new CameraPose();
@@ -117,15 +108,9 @@ struct StaticDescriptorInitializer_pose_2eproto {
 const int CameraPose::kXFieldNumber;
 const int CameraPose::kYFieldNumber;
 const int CameraPose::kZFieldNumber;
-const int CameraPose::kRotMatR1C1FieldNumber;
-const int CameraPose::kRotMatR1C2FieldNumber;
-const int CameraPose::kRotMatR1C3FieldNumber;
-const int CameraPose::kRotMatR2C1FieldNumber;
-const int CameraPose::kRotMatR2C2FieldNumber;
-const int CameraPose::kRotMatR2C3FieldNumber;
-const int CameraPose::kRotMatR3C1FieldNumber;
-const int CameraPose::kRotMatR3C2FieldNumber;
-const int CameraPose::kRotMatR3C3FieldNumber;
+const int CameraPose::kYawFieldNumber;
+const int CameraPose::kPitchFieldNumber;
+const int CameraPose::kRollFieldNumber;
 const int CameraPose::kNavXTimeFieldNumber;
 #endif  // !_MSC_VER
 
@@ -150,15 +135,9 @@ void CameraPose::SharedCtor() {
   x_ = 0;
   y_ = 0;
   z_ = 0;
-  rotmatr1c1_ = 0;
-  rotmatr1c2_ = 0;
-  rotmatr1c3_ = 0;
-  rotmatr2c1_ = 0;
-  rotmatr2c2_ = 0;
-  rotmatr2c3_ = 0;
-  rotmatr3c1_ = 0;
-  rotmatr3c2_ = 0;
-  rotmatr3c3_ = 0;
+  yaw_ = 0;
+  pitch_ = 0;
+  roll_ = 0;
   navxtime_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -205,11 +184,8 @@ void CameraPose::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 255) {
-    ZR_(x_, rotmatr2c2_);
-  }
-  if (_has_bits_[8 / 32] & 7936) {
-    ZR_(rotmatr2c3_, navxtime_);
+  if (_has_bits_[0 / 32] & 127) {
+    ZR_(x_, navxtime_);
   }
 
 #undef OFFSET_OF_FIELD_
@@ -229,7 +205,7 @@ bool CameraPose::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required double x = 1;
+      // optional double x = 1;
       case 1: {
         if (tag == 9) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
@@ -243,7 +219,7 @@ bool CameraPose::MergePartialFromCodedStream(
         break;
       }
 
-      // required double y = 2;
+      // optional double y = 2;
       case 2: {
         if (tag == 17) {
          parse_y:
@@ -258,7 +234,7 @@ bool CameraPose::MergePartialFromCodedStream(
         break;
       }
 
-      // required double z = 3;
+      // optional double z = 3;
       case 3: {
         if (tag == 25) {
          parse_z:
@@ -269,148 +245,58 @@ bool CameraPose::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(33)) goto parse_rotMatR1C1;
+        if (input->ExpectTag(33)) goto parse_yaw;
         break;
       }
 
-      // required double rotMatR1C1 = 4;
+      // optional double yaw = 4;
       case 4: {
         if (tag == 33) {
-         parse_rotMatR1C1:
+         parse_yaw:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &rotmatr1c1_)));
-          set_has_rotmatr1c1();
+                 input, &yaw_)));
+          set_has_yaw();
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(41)) goto parse_rotMatR1C2;
+        if (input->ExpectTag(41)) goto parse_pitch;
         break;
       }
 
-      // required double rotMatR1C2 = 5;
+      // optional double pitch = 5;
       case 5: {
         if (tag == 41) {
-         parse_rotMatR1C2:
+         parse_pitch:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &rotmatr1c2_)));
-          set_has_rotmatr1c2();
+                 input, &pitch_)));
+          set_has_pitch();
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(49)) goto parse_rotMatR1C3;
+        if (input->ExpectTag(49)) goto parse_roll;
         break;
       }
 
-      // required double rotMatR1C3 = 6;
+      // optional double roll = 6;
       case 6: {
         if (tag == 49) {
-         parse_rotMatR1C3:
+         parse_roll:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &rotmatr1c3_)));
-          set_has_rotmatr1c3();
+                 input, &roll_)));
+          set_has_roll();
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(57)) goto parse_rotMatR2C1;
+        if (input->ExpectTag(56)) goto parse_navXTime;
         break;
       }
 
-      // required double rotMatR2C1 = 7;
+      // optional int32 navXTime = 7;
       case 7: {
-        if (tag == 57) {
-         parse_rotMatR2C1:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &rotmatr2c1_)));
-          set_has_rotmatr2c1();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(65)) goto parse_rotMatR2C2;
-        break;
-      }
-
-      // required double rotMatR2C2 = 8;
-      case 8: {
-        if (tag == 65) {
-         parse_rotMatR2C2:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &rotmatr2c2_)));
-          set_has_rotmatr2c2();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(73)) goto parse_rotMatR2C3;
-        break;
-      }
-
-      // required double rotMatR2C3 = 9;
-      case 9: {
-        if (tag == 73) {
-         parse_rotMatR2C3:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &rotmatr2c3_)));
-          set_has_rotmatr2c3();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(81)) goto parse_rotMatR3C1;
-        break;
-      }
-
-      // required double rotMatR3C1 = 10;
-      case 10: {
-        if (tag == 81) {
-         parse_rotMatR3C1:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &rotmatr3c1_)));
-          set_has_rotmatr3c1();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(89)) goto parse_rotMatR3C2;
-        break;
-      }
-
-      // required double rotMatR3C2 = 11;
-      case 11: {
-        if (tag == 89) {
-         parse_rotMatR3C2:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &rotmatr3c2_)));
-          set_has_rotmatr3c2();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(97)) goto parse_rotMatR3C3;
-        break;
-      }
-
-      // required double rotMatR3C3 = 12;
-      case 12: {
-        if (tag == 97) {
-         parse_rotMatR3C3:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &rotmatr3c3_)));
-          set_has_rotmatr3c3();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(104)) goto parse_navXTime;
-        break;
-      }
-
-      // optional int32 navXTime = 13;
-      case 13: {
-        if (tag == 104) {
+        if (tag == 56) {
          parse_navXTime:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
@@ -448,69 +334,39 @@ failure:
 void CameraPose::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:proto.CameraPose)
-  // required double x = 1;
+  // optional double x = 1;
   if (has_x()) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(1, this->x(), output);
   }
 
-  // required double y = 2;
+  // optional double y = 2;
   if (has_y()) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(2, this->y(), output);
   }
 
-  // required double z = 3;
+  // optional double z = 3;
   if (has_z()) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(3, this->z(), output);
   }
 
-  // required double rotMatR1C1 = 4;
-  if (has_rotmatr1c1()) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(4, this->rotmatr1c1(), output);
+  // optional double yaw = 4;
+  if (has_yaw()) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(4, this->yaw(), output);
   }
 
-  // required double rotMatR1C2 = 5;
-  if (has_rotmatr1c2()) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(5, this->rotmatr1c2(), output);
+  // optional double pitch = 5;
+  if (has_pitch()) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(5, this->pitch(), output);
   }
 
-  // required double rotMatR1C3 = 6;
-  if (has_rotmatr1c3()) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(6, this->rotmatr1c3(), output);
+  // optional double roll = 6;
+  if (has_roll()) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(6, this->roll(), output);
   }
 
-  // required double rotMatR2C1 = 7;
-  if (has_rotmatr2c1()) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(7, this->rotmatr2c1(), output);
-  }
-
-  // required double rotMatR2C2 = 8;
-  if (has_rotmatr2c2()) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(8, this->rotmatr2c2(), output);
-  }
-
-  // required double rotMatR2C3 = 9;
-  if (has_rotmatr2c3()) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(9, this->rotmatr2c3(), output);
-  }
-
-  // required double rotMatR3C1 = 10;
-  if (has_rotmatr3c1()) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(10, this->rotmatr3c1(), output);
-  }
-
-  // required double rotMatR3C2 = 11;
-  if (has_rotmatr3c2()) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(11, this->rotmatr3c2(), output);
-  }
-
-  // required double rotMatR3C3 = 12;
-  if (has_rotmatr3c3()) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(12, this->rotmatr3c3(), output);
-  }
-
-  // optional int32 navXTime = 13;
+  // optional int32 navXTime = 7;
   if (has_navxtime()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(13, this->navxtime(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(7, this->navxtime(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -523,69 +379,39 @@ void CameraPose::SerializeWithCachedSizes(
 ::google::protobuf::uint8* CameraPose::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:proto.CameraPose)
-  // required double x = 1;
+  // optional double x = 1;
   if (has_x()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(1, this->x(), target);
   }
 
-  // required double y = 2;
+  // optional double y = 2;
   if (has_y()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(2, this->y(), target);
   }
 
-  // required double z = 3;
+  // optional double z = 3;
   if (has_z()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(3, this->z(), target);
   }
 
-  // required double rotMatR1C1 = 4;
-  if (has_rotmatr1c1()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(4, this->rotmatr1c1(), target);
+  // optional double yaw = 4;
+  if (has_yaw()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(4, this->yaw(), target);
   }
 
-  // required double rotMatR1C2 = 5;
-  if (has_rotmatr1c2()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(5, this->rotmatr1c2(), target);
+  // optional double pitch = 5;
+  if (has_pitch()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(5, this->pitch(), target);
   }
 
-  // required double rotMatR1C3 = 6;
-  if (has_rotmatr1c3()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(6, this->rotmatr1c3(), target);
+  // optional double roll = 6;
+  if (has_roll()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(6, this->roll(), target);
   }
 
-  // required double rotMatR2C1 = 7;
-  if (has_rotmatr2c1()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(7, this->rotmatr2c1(), target);
-  }
-
-  // required double rotMatR2C2 = 8;
-  if (has_rotmatr2c2()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(8, this->rotmatr2c2(), target);
-  }
-
-  // required double rotMatR2C3 = 9;
-  if (has_rotmatr2c3()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(9, this->rotmatr2c3(), target);
-  }
-
-  // required double rotMatR3C1 = 10;
-  if (has_rotmatr3c1()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(10, this->rotmatr3c1(), target);
-  }
-
-  // required double rotMatR3C2 = 11;
-  if (has_rotmatr3c2()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(11, this->rotmatr3c2(), target);
-  }
-
-  // required double rotMatR3C3 = 12;
-  if (has_rotmatr3c3()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(12, this->rotmatr3c3(), target);
-  }
-
-  // optional int32 navXTime = 13;
+  // optional int32 navXTime = 7;
   if (has_navxtime()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(13, this->navxtime(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(7, this->navxtime(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -600,69 +426,37 @@ int CameraPose::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required double x = 1;
+    // optional double x = 1;
     if (has_x()) {
       total_size += 1 + 8;
     }
 
-    // required double y = 2;
+    // optional double y = 2;
     if (has_y()) {
       total_size += 1 + 8;
     }
 
-    // required double z = 3;
+    // optional double z = 3;
     if (has_z()) {
       total_size += 1 + 8;
     }
 
-    // required double rotMatR1C1 = 4;
-    if (has_rotmatr1c1()) {
+    // optional double yaw = 4;
+    if (has_yaw()) {
       total_size += 1 + 8;
     }
 
-    // required double rotMatR1C2 = 5;
-    if (has_rotmatr1c2()) {
+    // optional double pitch = 5;
+    if (has_pitch()) {
       total_size += 1 + 8;
     }
 
-    // required double rotMatR1C3 = 6;
-    if (has_rotmatr1c3()) {
+    // optional double roll = 6;
+    if (has_roll()) {
       total_size += 1 + 8;
     }
 
-    // required double rotMatR2C1 = 7;
-    if (has_rotmatr2c1()) {
-      total_size += 1 + 8;
-    }
-
-    // required double rotMatR2C2 = 8;
-    if (has_rotmatr2c2()) {
-      total_size += 1 + 8;
-    }
-
-  }
-  if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
-    // required double rotMatR2C3 = 9;
-    if (has_rotmatr2c3()) {
-      total_size += 1 + 8;
-    }
-
-    // required double rotMatR3C1 = 10;
-    if (has_rotmatr3c1()) {
-      total_size += 1 + 8;
-    }
-
-    // required double rotMatR3C2 = 11;
-    if (has_rotmatr3c2()) {
-      total_size += 1 + 8;
-    }
-
-    // required double rotMatR3C3 = 12;
-    if (has_rotmatr3c3()) {
-      total_size += 1 + 8;
-    }
-
-    // optional int32 navXTime = 13;
+    // optional int32 navXTime = 7;
     if (has_navxtime()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
@@ -705,34 +499,14 @@ void CameraPose::MergeFrom(const CameraPose& from) {
     if (from.has_z()) {
       set_z(from.z());
     }
-    if (from.has_rotmatr1c1()) {
-      set_rotmatr1c1(from.rotmatr1c1());
+    if (from.has_yaw()) {
+      set_yaw(from.yaw());
     }
-    if (from.has_rotmatr1c2()) {
-      set_rotmatr1c2(from.rotmatr1c2());
+    if (from.has_pitch()) {
+      set_pitch(from.pitch());
     }
-    if (from.has_rotmatr1c3()) {
-      set_rotmatr1c3(from.rotmatr1c3());
-    }
-    if (from.has_rotmatr2c1()) {
-      set_rotmatr2c1(from.rotmatr2c1());
-    }
-    if (from.has_rotmatr2c2()) {
-      set_rotmatr2c2(from.rotmatr2c2());
-    }
-  }
-  if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
-    if (from.has_rotmatr2c3()) {
-      set_rotmatr2c3(from.rotmatr2c3());
-    }
-    if (from.has_rotmatr3c1()) {
-      set_rotmatr3c1(from.rotmatr3c1());
-    }
-    if (from.has_rotmatr3c2()) {
-      set_rotmatr3c2(from.rotmatr3c2());
-    }
-    if (from.has_rotmatr3c3()) {
-      set_rotmatr3c3(from.rotmatr3c3());
+    if (from.has_roll()) {
+      set_roll(from.roll());
     }
     if (from.has_navxtime()) {
       set_navxtime(from.navxtime());
@@ -754,7 +528,6 @@ void CameraPose::CopyFrom(const CameraPose& from) {
 }
 
 bool CameraPose::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000fff) != 0x00000fff) return false;
 
   return true;
 }
@@ -764,15 +537,9 @@ void CameraPose::Swap(CameraPose* other) {
     std::swap(x_, other->x_);
     std::swap(y_, other->y_);
     std::swap(z_, other->z_);
-    std::swap(rotmatr1c1_, other->rotmatr1c1_);
-    std::swap(rotmatr1c2_, other->rotmatr1c2_);
-    std::swap(rotmatr1c3_, other->rotmatr1c3_);
-    std::swap(rotmatr2c1_, other->rotmatr2c1_);
-    std::swap(rotmatr2c2_, other->rotmatr2c2_);
-    std::swap(rotmatr2c3_, other->rotmatr2c3_);
-    std::swap(rotmatr3c1_, other->rotmatr3c1_);
-    std::swap(rotmatr3c2_, other->rotmatr3c2_);
-    std::swap(rotmatr3c3_, other->rotmatr3c3_);
+    std::swap(yaw_, other->yaw_);
+    std::swap(pitch_, other->pitch_);
+    std::swap(roll_, other->roll_);
     std::swap(navxtime_, other->navxtime_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);

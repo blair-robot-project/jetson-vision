@@ -88,15 +88,7 @@ int main(int argc, char* argv[]) {
 				cameraPose.set_x(poseMat.at<double>(0, 3));
 				cameraPose.set_y(poseMat.at<double>(1, 3));
 				cameraPose.set_z(poseMat.at<double>(2, 3));
-				cameraPose.set_rotmatr1c1(poseMat.at<double>(0,0));
-				cameraPose.set_rotmatr1c2(poseMat.at<double>(0,1));
-				cameraPose.set_rotmatr1c3(poseMat.at<double>(0,2));
-				cameraPose.set_rotmatr2c1(poseMat.at<double>(1,0));
-				cameraPose.set_rotmatr2c2(poseMat.at<double>(1,1));
-				cameraPose.set_rotmatr2c3(poseMat.at<double>(1,2));
-				cameraPose.set_rotmatr3c1(poseMat.at<double>(2,0));
-				cameraPose.set_rotmatr3c2(poseMat.at<double>(2,1));
-				cameraPose.set_rotmatr3c3(poseMat.at<double>(2,2));
+				cameraPose.set_yaw(atan2(poseMat.at<double>(1,0),poseMat.at<double>(0,0)));
                 cameraPose.SerializeToString(&msg_str);
                 request = zmq::message_t(msg_str.size());
                 memcpy (request.data (), msg_str.c_str(), msg_str.size());
