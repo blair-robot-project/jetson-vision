@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
 	zmq::socket_t socket (context, ZMQ_PAIR);
 
     std::cout << "Connecting to server" << std::endl;
-    socket.connect ("10.4.49.2:5555");
+    socket.connect ("tcp://10.4.49.2:5555");
 
 //	VideoCapture cap("/media/LinHDD/Videos/my_video-1.mkv");
 
