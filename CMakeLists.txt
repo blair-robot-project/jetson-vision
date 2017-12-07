@@ -21,11 +21,12 @@ set(PROJECT_BINARY_DIR include)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR} ${OpenCV_INCLUDE_DIRS} ${Protobuf_INCLUDE_DIRS} navXTimeSync ${PROJECT_BINARY_DIR} gen)
 
-set(SOURCE_FILES gen/pose.pb.h ${PROJECT_SOURCE_DIR}/main.cpp ${PROJECT_SOURCE_DIR}/threshholder.cpp
-		${PROJECT_BINARY_DIR}/threshholder.h ${PROJECT_SOURCE_DIR}/contour_finder.cpp
-		${PROJECT_SOURCE_DIR}/corner_finder.cpp ${PROJECT_BINARY_DIR}/corner_finder.h
-		${PROJECT_SOURCE_DIR}/corner_checker.cpp ${PROJECT_BINARY_DIR}/corner_checker.h
-		${PROJECT_SOURCE_DIR}/pose_estimator.cpp ${PROJECT_BINARY_DIR}/pose_estimator.h)
+#set(SOURCE_FILES gen/pose.pb.h ${PROJECT_SOURCE_DIR}/main.cpp ${PROJECT_SOURCE_DIR}/threshholder.cpp
+#		${PROJECT_BINARY_DIR}/threshholder.h ${PROJECT_SOURCE_DIR}/contour_finder.cpp
+#		${PROJECT_SOURCE_DIR}/corner_finder.cpp ${PROJECT_BINARY_DIR}/corner_finder.h
+#		${PROJECT_SOURCE_DIR}/corner_checker.cpp ${PROJECT_BINARY_DIR}/corner_checker.h
+#		${PROJECT_SOURCE_DIR}/pose_estimator.cpp ${PROJECT_BINARY_DIR}/pose_estimator.h)
+set(SOURCE_FILES src/camera_calibration.cpp)
 
 add_executable(jetson_vision ${SOURCE_FILES})
 

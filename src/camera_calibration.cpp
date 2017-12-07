@@ -1,16 +1,8 @@
 #include <iostream>
 #include <sstream>
-#include <string>
 #include <ctime>
-#include <cstdio>
 
-#include <opencv2/core.hpp>
-#include <opencv2/core/utility.hpp>
-#include <opencv2/imgproc.hpp>
-#include <opencv2/calib3d.hpp>
-#include <opencv2/imgcodecs.hpp>
-#include <opencv2/videoio.hpp>
-#include <opencv2/highgui.hpp>
+#include "opencv2/opencv.hpp"#include "opencv2/opencv.hpp"
 
 using namespace cv;
 using namespace std;
@@ -147,7 +139,6 @@ public:
 			if(fixK2)                   flag |= fisheye::CALIB_FIX_K2;
 			if(fixK3)                   flag |= fisheye::CALIB_FIX_K3;
 			if(fixK4)                   flag |= fisheye::CALIB_FIX_K4;
-			if (calibFixPrincipalPoint) flag |= fisheye::CALIB_FIX_PRINCIPAL_POINT;
 		}
 
 		calibrationPattern = NOT_EXISTING;
@@ -637,7 +628,6 @@ static void saveCameraParams( Settings& s, Size& imageSize, Mat& cameraMatrix, M
 			                  << (s.flag & CALIB_FIX_K4 ? " +fix_k4" : "")
 			                  << (s.flag & CALIB_FIX_K5 ? " +fix_k5" : "");
 		}
-		fs.writeComment(flagsStringStream.str());
 	}
 
 	fs << "flags" << s.flag;
@@ -680,7 +670,6 @@ static void saveCameraParams( Settings& s, Size& imageSize, Mat& cameraMatrix, M
 				t = tvecs[i].t();
 			}
 		}
-		fs.writeComment("a set of 6-tuples (rotation vector + translation vector) for each view");
 		fs << "extrinsic_parameters" << bigmat;
 	}
 

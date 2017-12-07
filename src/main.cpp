@@ -44,18 +44,12 @@ int main(int argc, char* argv[]) {
 
 //	VideoCapture cap("/media/LinHDD/Videos/my_video-1.mkv");
 
-	VideoCapture cap(1);
+	VideoCapture cap(0);
 
 //	VideoCapture cap("/media/LinHDD/Images/vision/Screenshot from my_video-1.mkv.png");
 
-    cap.set(CV_CAP_PROP_BRIGHTNESS, 100);
-    cap.set(CV_CAP_PROP_CONTRAST, 5);
-    cap.set(CV_CAP_PROP_SATURATION, 83);
-    cap.set(CV_CAP_PROP_EXPOSURE, 1.0);
-    cout << cap.get(CV_CAP_PROP_WHITE_BALANCE_BLUE_U) << endl;
-    cout << cap.get(CV_CAP_PROP_WHITE_BALANCE_RED_V) << endl;
-    cap.set(CV_CAP_PROP_WHITE_BALANCE_BLUE_U, 1);
-    cap.set(CV_CAP_PROP_WHITE_BALANCE_RED_V, 1);
+    system("./lifecamSettings.sh");
+
 	width = static_cast<int>(cap.get(CV_CAP_PROP_FRAME_WIDTH));
 	height = static_cast<int>(cap.get(CV_CAP_PROP_FRAME_HEIGHT));
 
