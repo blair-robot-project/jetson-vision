@@ -48,8 +48,6 @@ int main(int argc, char* argv[]) {
 
 //	VideoCapture cap("/media/LinHDD/Images/vision/Screenshot from my_video-1.mkv.png");
 
-    system("./lifecamSettings.sh");
-
 	width = static_cast<int>(cap.get(CV_CAP_PROP_FRAME_WIDTH));
 	height = static_cast<int>(cap.get(CV_CAP_PROP_FRAME_HEIGHT));
 
