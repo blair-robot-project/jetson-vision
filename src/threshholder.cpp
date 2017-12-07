@@ -15,8 +15,9 @@ using namespace cv;
 Mat1b threshholder::threshhold(const Mat &in){
 	gpuMat.upload(in);
 	gpu::cvtColor(gpuMat,gpuMat,COLOR_BGR2HSV);
-	gBlur->apply(gpuMat,gpuMat);
+//	gBlur->apply(gpuMat,gpuMat);
 	gpuMat.download(mat);
+//    imshow("Threshholder window", mat);
 	inRange(mat, lowerBound, upperBound, mat);
 	return mat;
 }

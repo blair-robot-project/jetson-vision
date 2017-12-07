@@ -24,8 +24,10 @@ int main(int argc, char* argv[]) {
 	Mat cameraMatrix, distCoeff;
 	Mat1b threshed;
 	Mat1f poseMat;
-	threshholder threshholder(gpu::createGaussianFilter_GPU(CV_8UC3, Size(5,5), 0, 0), Vec3b(40, 135, 55),
-	                          Vec3b(60, 255, 160));
+//	threshholder threshholder(gpu::createGaussianFilter_GPU(CV_8UC3, Size(5,5), 0, 0), Vec3b(40, 135, 55),
+//	                          Vec3b(60, 255, 160));
+    threshholder threshholder(gpu::createGaussianFilter_GPU(CV_8UC3, Size(5,5), 0, 0), Vec3b(66, 254, 102),
+	                          Vec3b(91, 255, 162));
 	contour_finder contourFinder(CHAIN_APPROX_SIMPLE);
 	vector<Point> cont;
 	vector<Point2f> points(4);
@@ -69,6 +71,7 @@ int main(int argc, char* argv[]) {
 	pose_estimator poseEstimator = pose_estimator(objPoints, cameraMatrix, distCoeff);
 
 	namedWindow("Video Capture", WINDOW_NORMAL);
+    namedWindow("Threshholded", WINDOW_NORMAL);
 
 	while((char)waitKey(17)!='q'){
 		cap>>frame;
@@ -78,6 +81,7 @@ int main(int argc, char* argv[]) {
 		}
 
 		threshed = threshholder.threshhold(goodFrame);
+        imshow("Threshholded", threshed);
 		cont = contourFinder.get_largest_contour(threshed);
 
 		if (!cont.empty()) {

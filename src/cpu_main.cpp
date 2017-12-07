@@ -1,6 +1,7 @@
+#include <opencv2/core/gpumat.hpp>
+#include <opencv2/gpu/gpu.hpp>
+#include <threshholder.h>
 #include "opencv2/opencv.hpp"
-#include <iostream>
-#include <chrono>
 
 using namespace std;
 using namespace cv;
@@ -11,24 +12,22 @@ void on_low_s_thresh_trackbar(int, void *);
 void on_high_s_thresh_trackbar(int, void *);
 void on_low_v_thresh_trackbar(int, void *);
 void on_high_v_thresh_trackbar(int, void *);
-int low_h=100, low_s=60, low_v=40;
-int high_h=255, high_s=135, high_v=70;
+int low_h=66, low_s=254, low_v=102;
+int high_h=91, high_s=255, high_v=162;
 //GPU: 4577282520, 5513312761
 //CPU: 7645543143, 8696878819
 
 int main(int argc, char* argv[]) {
 
-	cout << "CUDA devices: " << cuda::getCudaEnabledDeviceCount() << endl;
-
+    threshholder threshholder(gpu::createGaussianFilter_GPU(CV_8UC3, Size(5,5), 0, 0), Vec3b(0, 0, 0),
+                              Vec3b(255, 255, 255));
 	Mat frame, frame_threshold, cameraMatrix, distCoeff, map1, map2;
 	vector<vector<Point> > contours;
 	vector<Vec4i> hierarchy;
-	Ptr<cuda::Filter> gBlur;
-	auto startTime = std::chrono::high_resolution_clock::now();
-	auto totalTime = std::chrono::high_resolution_clock::now()-std::chrono::high_resolution_clock::now();
 
-	VideoCapture cap("/media/LinHDD/Videos/test.mkv");
+//	VideoCapture cap("/media/LinHDD/Videos/test.mkv");
 
+    VideoCapture cap(0);
 //	cap >> frame;
 //	Size imageSize = frame.size();
 //
@@ -49,7 +48,7 @@ int main(int argc, char* argv[]) {
 //	                                                  1, imageSize, 0), imageSize, CV_16SC2, map1, map2);
 
 	namedWindow("Video Capture", WINDOW_NORMAL);
-	namedWindow("Object Detection", WINDOW_FULLSCREEN);
+	namedWindow("Object Detection", WINDOW_NORMAL);
 	//-- Trackbars to set thresholds for RGB values
 	createTrackbar("Low H","Object Detection", &low_h, 255, on_low_h_thresh_trackbar);
 	createTrackbar("High H","Object Detection", &high_h, 255, on_high_h_thresh_trackbar);
@@ -58,26 +57,22 @@ int main(int argc, char* argv[]) {
 	createTrackbar("Low V", "Object Detection", &low_v, 255, on_low_v_thresh_trackbar);
 	createTrackbar("High V", "Object Detection", &high_v, 255, on_high_v_thresh_trackbar);
 	while((char)waitKey(17)!='q'){
-		startTime = std::chrono::high_resolution_clock::now();
 		cap>>frame;
 		if(!frame.empty()) {
 //		remap(frame, frame, map1, map2, INTER_LINEAR);
-			cvtColor(frame, frame_threshold, COLOR_BGR2HSV);
+            threshholder.set_limits(Vec3b(low_h, low_s, low_v), Vec3b(high_h, high_s, high_v));
+            frame_threshold = threshholder.threshhold(frame);
 
-			GaussianBlur(frame_threshold, frame_threshold,Size(3,3), 0, 0);
-			//-- Detect the object based on RGB Range Values
-			inRange(frame_threshold, Scalar(low_v, low_s, low_h), Scalar(high_v, high_s, high_h), frame_threshold);
-			findContours(frame_threshold, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE, Point(0, 0));
-			drawContours(frame, contours, -1, Scalar(0, 255, 0));
+//			GaussianBlur(frame_threshold, frame_threshold, Size(5,5), 0, 0);
+			//-- Detect the object based on HSV Range Values
+//			inRange(frame_threshold, Vec3b(low_h, low_s, low_v), Vec3b(high_h, high_s, high_v), frame_threshold);
+//			findContours(frame_threshold, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE, Point(0, 0));
+//			drawContours(frame, contours, -1, Scalar(0, 255, 0));
 			//-- Show the frames
 			imshow("Video Capture", frame);
 			imshow("Object Detection", frame_threshold);
-		} else {
-			break;
 		}
-		totalTime += std::chrono::high_resolution_clock::now()-startTime;
 	}
-	cout << "Took "<< std::chrono::duration_cast<std::chrono::nanoseconds>(totalTime).count() << " nanoseconds.";
 	return 0;
 }
 

@@ -27,6 +27,7 @@ set(SOURCE_FILES gen/pose.pb.h ${PROJECT_SOURCE_DIR}/main.cpp ${PROJECT_SOURCE_D
 		${PROJECT_SOURCE_DIR}/corner_checker.cpp ${PROJECT_BINARY_DIR}/corner_checker.h
 		${PROJECT_SOURCE_DIR}/pose_estimator.cpp ${PROJECT_BINARY_DIR}/pose_estimator.h)
 #set(SOURCE_FILES src/camera_calibration.cpp)
+#set(SOURCE_FILES src/cpu_main.cpp)
 
 add_executable(jetson_vision ${SOURCE_FILES})
 
