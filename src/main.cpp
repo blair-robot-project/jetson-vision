@@ -89,6 +89,7 @@ int main(int argc, char* argv[]) {
 
 			if(cornerChecker.check_corners(points)){
 				poseMat = poseEstimator.get_pose(points);
+
 				cameraPose.set_x(poseMat.at<double>(0, 3));
 				cameraPose.set_y(poseMat.at<double>(1, 3));
 				cameraPose.set_z(poseMat.at<double>(2, 3));
@@ -96,7 +97,7 @@ int main(int argc, char* argv[]) {
                 cameraPose.SerializeToString(&msg_str);
                 request = zmq::message_t(msg_str.size());
                 memcpy (request.data (), msg_str.c_str(), msg_str.size());
-                std::cout << "Sending Person data ..." << std::endl;
+                cout << "Sending Pose, x:" << cameraPose.x() << ", y: " << cameraPose.y() << ", yaw: " << cameraPose.yaw() << endl;
                 socket.send (request);
 			}
 		}

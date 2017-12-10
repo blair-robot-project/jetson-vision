@@ -23,9 +23,7 @@ pose_estimator::pose_estimator(const vector<Point3f> &objectCorners, const Mat1f
  * @param corners The 4 corners of the object as detected by the camera.
  * @return A 4x4 matrix with top-left 3x3 describing the rotation of the camera and the right column giving x,y,z position.
  */
-Mat1f pose_estimator::get_pose(const vector<Point2f> &corners) {
-	rvec = Mat();
-	tvec = Mat();
+Mat pose_estimator::get_pose(const vector<Point2f> &corners) {
 	solvePnP(objectCorners, corners, cameraMatrix, distortionCoefficients, rvec, tvec);
 	Rodrigues(rvec, zyx);
 	hconcat(zyx, tvec, final);

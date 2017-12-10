@@ -29,13 +29,13 @@ public:
      * @param corners The 4 corners of the object as detected by the camera.
 	 * @return A 4x4 matrix with top-left 3x3 describing the rotation of the camera and the right column giving x,y,z position.
 	 */
-	Mat1f get_pose(const vector<Point2f> &corners);
+	Mat get_pose(const vector<Point2f> &corners);
 
 private:
 	vector<Point3f> objectCorners;
 	Mat1f cameraMatrix, distortionCoefficients;
-	Mat1f rvec, tvec, zyx, final;
-	const Mat1f bottom = Mat(Vec4f(0,0,0,1)).t();
+	Mat rvec, tvec, zyx, final;
+	const Mat bottom = Mat(Vec4d(0,0,0,1)).t();
 
 };
 

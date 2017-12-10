@@ -32,5 +32,4 @@ set(SOURCE_FILES gen/pose.pb.h ${PROJECT_SOURCE_DIR}/main.cpp ${PROJECT_SOURCE_D
 add_executable(jetson_vision ${SOURCE_FILES})
 
 target_link_libraries(jetson_vision ${OpenCV_LIBS})
-target_link_libraries(jetson_vision ${Protobuf_LIBRARIES})
 target_link_libraries(jetson_vision ${CONAN_LIBS})
