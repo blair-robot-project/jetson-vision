@@ -1,6 +1,6 @@
 [requires]
-Protobuf/2.6.1@memsharded/testing
-zmqcpp/4.1.1@memsharded/stable
+protobuf/3.6.1@bincrafters/stable
+zmq/4.2.5@bincrafters/stable
 
 [generators]
 cmake
