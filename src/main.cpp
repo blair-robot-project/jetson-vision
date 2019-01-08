@@ -44,7 +44,8 @@ int main(int argc, char* argv[]) {
 
 //	VideoCapture cap("/media/LinHDD/Videos/my_video-1.mkv");
 
-	VideoCapture cap(1);
+    system("lifecamSettings.sh");
+	VideoCapture cap(0);
 
 //	VideoCapture cap("/media/LinHDD/Images/vision/Screenshot from my_video-1.mkv.png");
 
