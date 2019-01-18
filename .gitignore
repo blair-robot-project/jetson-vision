@@ -17,3 +17,5 @@ cmake-build-debug/
 .metadata/
 .DS_Store
 bash.exe.stackdump
+
+*/__pycache__/
