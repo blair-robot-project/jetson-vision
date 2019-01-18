@@ -1,5 +1,3 @@
-#include <opencv2/core/gpumat.hpp>
-#include <opencv2/gpu/gpu.hpp>
 #include <threshholder.h>
 #include "opencv2/opencv.hpp"
 
@@ -19,7 +17,7 @@ int high_h=91, high_s=255, high_v=162;
 
 int main(int argc, char* argv[]) {
 
-    threshholder threshholder(gpu::createGaussianFilter_GPU(CV_8UC3, Size(5,5), 0, 0), Vec3b(0, 0, 0),
+    threshholder threshholder(cuda::createGaussianFilter(CV_8UC3, CV_8UC3, Size(5,5), 0, 0), Vec3b(0, 0, 0),
                               Vec3b(255, 255, 255));
 	Mat frame, frame_threshold, cameraMatrix, distCoeff, map1, map2;
 	vector<vector<Point> > contours;

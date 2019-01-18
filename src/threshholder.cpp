@@ -14,8 +14,8 @@ using namespace cv;
  */
 Mat1b threshholder::threshhold(const Mat &in){
 	gpuMat.upload(in);
-	gpu::cvtColor(gpuMat,gpuMat,COLOR_BGR2HSV);
-//	gBlur->apply(gpuMat,gpuMat);
+	cuda::cvtColor(gpuMat,gpuMat,COLOR_BGR2HSV);
+	gBlur->apply(gpuMat,gpuMat);
 	gpuMat.download(mat);
 //    imshow("Threshholder window", mat);
 	inRange(mat, lowerBound, upperBound, mat);
@@ -40,10 +40,10 @@ void threshholder::set_limits(const Vec3b &lowerHSV, const Vec3b &upperHSV){
  * @param lowerHSV The lower bound on HSV values.
  * @param upperHSV The upper bound on HSV values.
  */
-threshholder::threshholder(const Ptr<gpu::FilterEngine_GPU> &gBlur, const Vec3b &lowerHSV, const Vec3b &upperHSV){
+threshholder::threshholder(const Ptr<cuda::Filter> &gBlur, const Vec3b &lowerHSV, const Vec3b &upperHSV){
 	this->gBlur = gBlur;
 	this->lowerBound = lowerHSV;
 	this->upperBound = upperHSV;
-	this->gpuMat = gpu::GpuMat();
+	this->gpuMat = cuda::GpuMat();
 	this->mat = Mat();
 };
