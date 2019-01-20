@@ -10,7 +10,12 @@ class ContourFinder:
         _, contours, _ = cv.findContours(in_mat, self.mode, cv.RETR_EXTERNAL)
         if len(contours) == 0:
             return ()
-        return contours.partition(0)[0]
+        # Get the biggest contour
+        longest = contours[0]
+        for contour in contours:
+            if self.contour_comparator(contour, longest):
+                longest = contour
+        return longest
 
     @staticmethod
     def contour_comparator(a, b):
