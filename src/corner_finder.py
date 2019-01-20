@@ -6,7 +6,7 @@ class CornerFinder:
 
     def __init__(self, width, height):
         # Bottom left, bottom right, top left, top right
-        self.corners = [np.array(0, 0), np.array(width, 0), np.array(0, height), np.array(width, height)]
+        self.corners = [np.array([0, 0]), np.array([width, 0]), np.array([0, height]), np.array([width, height])]
 
     def get_corners(self, contour):
         min_dist = [math.inf, math.inf, math.inf, math.inf]
