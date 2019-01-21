@@ -19,3 +19,4 @@ cmake-build-debug/
 bash.exe.stackdump
 
 */__pycache__/
+gen/python/__pycache/

@@ -7,7 +7,7 @@ class ContourFinder:
         self.mode = mode
 
     def get_largest_contour(self, in_mat):
-        _, contours, _ = cv.findContours(in_mat, self.mode, cv.RETR_EXTERNAL)
+        _, contours, _ = cv.findContours(in_mat, cv.RETR_EXTERNAL, self.mode)
         if len(contours) == 0:
             return ()
         # Get the biggest contour

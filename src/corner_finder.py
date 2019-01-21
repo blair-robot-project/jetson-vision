@@ -11,10 +11,11 @@ class CornerFinder:
     def get_corners(self, contour):
         min_dist = [math.inf, math.inf, math.inf, math.inf]
         to_ret = [None, None, None, None]
+        # print(contour[0])
         for point in contour:
             for i in range(4):
-                dist = np.linalg.norm(point - self.corners[i])
+                dist = np.linalg.norm(point[0] - self.corners[i])
                 if dist < min_dist[i]:
                     min_dist[i] = dist
-                    to_ret[i] = point
+                    to_ret[i] = np.array(point[0], dtype=np.float32)
         return to_ret
