@@ -15,7 +15,7 @@ class Threshholder:
         self.upper_hsv_bound = upper_hsv_bound
 
     def threshhold(self, in_mat):
-        # Switch to the HSV colorspace necause it's easier to find the bright green retro tape
+        # Switch to the HSV colorspace because it's easier to find the bright green retro tape
         out_mat = cv.cvtColor(src=in_mat, code=cv.COLOR_BGR2HSV)
         # Blur the image to get rid of some noise and make the threshhold more consistent
         out_mat = cv.GaussianBlur(out_mat, (self.gaussian_size, self.gaussian_size), 0, 0)

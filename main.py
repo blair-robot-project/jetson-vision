@@ -18,6 +18,7 @@ message = pose.CameraPose()
 
 # Define the threshholder. You may have to change the HSV bounds depending on lighting and which camera you're using.
 thresh = Threshholder(gaussian_size=5, erode_size=10, lower_hsv_bound=(40, 135, 55), upper_hsv_bound=(60, 255, 160))
+# thresh = Threshholder(gaussian_size=5, erode_size=10, lower_hsv_bound=(55, 0, 50), upper_hsv_bound=(90, 255, 200))
 
 # Define the contour finder to find the outlines of the vision target.
 contour_finder = ContourFinder(mode=cv.CHAIN_APPROX_SIMPLE)
