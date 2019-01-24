@@ -1,11 +1,11 @@
 import math
 
 import zmq
-from src.threshholder import Threshholder
-from src.contourfinder import ContourFinder
-from src.corner_finder import CornerFinder
-from src.corner_checker import CornerChecker
-from src.pose_estimator import PoseEstimator
+from component.threshholder import Threshholder
+from component.contourfinder import ContourFinder
+from component.corner_finder import CornerFinder
+from component.corner_checker import CornerChecker
+from component.pose_estimator import PoseEstimator
 import gen.python.pose_pb2 as pose
 import cv2 as cv
 import numpy as np
