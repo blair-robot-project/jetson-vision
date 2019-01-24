@@ -18,5 +18,5 @@ cmake-build-debug/
 .DS_Store
 bash.exe.stackdump
 
-*/__pycache__/
-gen/python/__pycache/
+gen/python/__pycache__/
+src/component/__pycache__/
