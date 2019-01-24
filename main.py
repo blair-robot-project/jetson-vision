@@ -65,8 +65,8 @@ right_pose_estimator = PoseEstimator(right_points, camera_matrix, dist_coeff)
 both_pose_estimator = PoseEstimator(np.concatenate((left_points, right_points)), camera_matrix, dist_coeff)
 
 # Create windows for viewing the output.
-cv.namedWindow("Video Capture", cv.WINDOW_NORMAL)
-cv.namedWindow("Threshholded", cv.WINDOW_NORMAL)
+#cv.namedWindow("Video Capture", cv.WINDOW_NORMAL)
+#cv.namedWindow("Threshholded", cv.WINDOW_NORMAL)
 
 # Loop until the users presses 'q'
 while cv.waitKey(15) != ord('q'):
@@ -80,7 +80,7 @@ while cv.waitKey(15) != ord('q'):
 
         # Threshhold to find just the retroreflective tape, then show the threshholded image
         threshed = thresh.threshhold(frame)
-        cv.imshow("Threshholded", threshed)
+        #cv.imshow("Threshholded", threshed)
 
         # Find the most complex contour the camera can see.
         contours = contour_finder.get_two_complicated_contours(threshed)
@@ -110,38 +110,38 @@ while cv.waitKey(15) != ord('q'):
             elif right_valid:
                 pose_mat = right_pose_estimator.get_pose(right_corners)
 
-            if left_valid:
-                # Top (Blue)
-                frame = cv.circle(frame, (left_corners[0][0], left_corners[0][1]), 5, (255, 0, 0))
-                # Right (Red)
-                frame = cv.circle(frame, (left_corners[1][0], left_corners[1][1]), 5, (0, 0, 255))
-                # Bottom (white)
-                frame = cv.circle(frame, (left_corners[2][0], left_corners[2][1]), 5, (255, 255, 255))
-                # Left (yellow)
-                frame = cv.circle(frame, (left_corners[3][0], left_corners[3][1]), 5, (0, 255, 255))
-            if right_valid:
-                # Top (Blue)
-                frame = cv.drawMarker(frame, (right_corners[0][0], right_corners[0][1]), (255, 0, 0))
-                # Right (Red)
-                frame = cv.drawMarker(frame, (right_corners[1][0], right_corners[1][1]), (0, 0, 255))
-                # Bottom (white)
-                frame = cv.drawMarker(frame, (right_corners[2][0], right_corners[2][1]), (255, 255, 255))
-                # Left (yellow)
-                frame = cv.drawMarker(frame, (right_corners[3][0], right_corners[3][1]), (0, 255, 255))
+#            if left_valid:
+#                # Top (Blue)
+#                frame = cv.circle(frame, (left_corners[0][0], left_corners[0][1]), 5, (255, 0, 0))
+#                # Right (Red)
+#                frame = cv.circle(frame, (left_corners[1][0], left_corners[1][1]), 5, (0, 0, 255))
+#                # Bottom (white)
+#                frame = cv.circle(frame, (left_corners[2][0], left_corners[2][1]), 5, (255, 255, 255))
+#                # Left (yellow)
+#                frame = cv.circle(frame, (left_corners[3][0], left_corners[3][1]), 5, (0, 255, 255))
+#            if right_valid:
+#                # Top (Blue)
+#                frame = cv.drawMarker(frame, (right_corners[0][0], right_corners[0][1]), (255, 0, 0))
+#                # Right (Red)
+#                frame = cv.drawMarker(frame, (right_corners[1][0], right_corners[1][1]), (0, 0, 255))
+#                # Bottom (white)
+#                frame = cv.drawMarker(frame, (right_corners[2][0], right_corners[2][1]), (255, 255, 255))
+#                # Left (yellow)
+#                frame = cv.drawMarker(frame, (right_corners[3][0], right_corners[3][1]), (0, 255, 255))
 
             if left_valid or right_valid:
                 # Transfer pose info from output matrix to NetworkTables, after converting to feet
                 table.putNumber("x", pose_mat[0][3]/12.)
                 table.putNumber("y", pose_mat[1][3]/12.)
                 table.putNumber("z", pose_mat[2][3]/12.)
-                print(str(pose_mat))
+                # print(str(pose_mat))
                 # print(str(left_valid)+", "+str(right_valid))
                 # print("Z: "+str(pose_mat[2][3]))
                 table.putNumber("yaw", math.atan2(pose_mat[1][0], pose_mat[0][0]))
 
         # Display the frame after possibly drawing on it
-        cv.imshow("Video Capture", frame)
+        #cv.imshow("Video Capture", frame)
 
 cap.release()
-cv.destroyAllWindows()
+#cv.destroyAllWindows()
 print("Should exit now.")
