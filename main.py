@@ -14,8 +14,8 @@ import numpy as np
 obj_points = np.array([[0, 0, 0], [2, 0, 0], [2, 5.75, 0], [0, 5.75, 0]], np.float32)
 
 # Define the threshholder. You may have to change the HSV bounds depending on lighting and which camera you're using.
-thresh = Threshholder(gaussian_size=5, erode_size=7, lower_hsv_bound=(40, 135, 55), upper_hsv_bound=(60, 255, 160))
-# thresh = Threshholder(gaussian_size=5, erode_size=10, lower_hsv_bound=(55, 0, 50), upper_hsv_bound=(90, 255, 200))
+# thresh = Threshholder(gaussian_size=5, erode_size=7, lower_hsv_bound=(40, 135, 55), upper_hsv_bound=(60, 255, 160))
+thresh = Threshholder(gaussian_size=5, erode_size=10, lower_hsv_bound=(55, 0, 50), upper_hsv_bound=(90, 255, 200))
 
 # Define the contour finder to find the outlines of the vision target.
 contour_finder = ContourFinder(mode=cv.CHAIN_APPROX_SIMPLE)
@@ -29,8 +29,8 @@ table = NetworkTables.getTable("SmartDashboard").getSubTable('jetson-vision')
 
 # Set up the VideoCapture we use as input, either as a pre-recorded video or a live camera stream.
 # cap = cv.VideoCapture("/home/nvidia/Downloads/my_video-1.mkv")  # Pre-recorded video
-cap = cv.VideoCapture("/media/LinHDD/Videos/my_video-1.mkv")  # Pre-recorded video
-# cap = cv.VideoCapture(0)  # Live camera feed. The number here corresponds to the /dev/video number.
+# cap = cv.VideoCapture("/media/LinHDD/Videos/my_video-1.mkv")  # Pre-recorded video
+cap = cv.VideoCapture(0)  # Live camera feed. The number here corresponds to the /dev/video number.
 # cap = cv.VideoCapture("/media/LinHDD/Images/vision/Screenshot from my_video-1.mkv.png")  # Pre-recorded image.
 
 # Get the image width and height.
