@@ -12,13 +12,13 @@ from src.component.pose_estimator import PoseEstimator
 import cv2 as cv
 import numpy as np
 
-# The (x,y,z) points for the corners of the vision targets, in the order top, right, bottom, left, in feet
+# The (x,y,z) points for the corners of the vision targets, in the order top, right, bottom, left, in inches
 left_points = np.array([[-5.936295, 0, 0], [-4, 0.50076, 0], [-5.37709, 5.825572, 0], [-7.313385, 5.324812, 0]], np.float32)
 right_points = np.array([[5.936295, 0, 0], [7.313385, 5.324812, 0], [5.37709, 5.825572, 0], [4, 0.50076, 0]], np.float32)
 
 # Define the threshholder. You may have to change the HSV bounds depending on lighting and which camera you're using.
 # thresh = Threshholder(gaussian_size=5, erode_size=7, lower_hsv_bound=(40, 135, 55), upper_hsv_bound=(60, 255, 160))
-thresh = Threshholder(gaussian_size=5, erode_size=10, lower_hsv_bound=(55, 0, 50), upper_hsv_bound=(90, 255, 200))
+thresh = Threshholder(gaussian_size=1, erode_size=10, lower_hsv_bound=(40, 0, 30), upper_hsv_bound=(90, 255, 200))
 
 # Define the contour finder to find the outlines of the vision target.
 # contour_finder = ContourFinder(mode=cv.CHAIN_APPROX_SIMPLE)
@@ -134,6 +134,9 @@ while cv.waitKey(15) != ord('q'):
                 table.putNumber("x", pose_mat[0][3]/12.)
                 table.putNumber("y", pose_mat[1][3]/12.)
                 table.putNumber("z", pose_mat[2][3]/12.)
+                print(str(pose_mat))
+                # print(str(left_valid)+", "+str(right_valid))
+                # print("Z: "+str(pose_mat[2][3]))
                 table.putNumber("yaw", math.atan2(pose_mat[1][0], pose_mat[0][0]))
 
         # Display the frame after possibly drawing on it
