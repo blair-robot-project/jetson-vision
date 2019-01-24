@@ -1,6 +1,6 @@
 import math
 
-import zmq
+from networktables import NetworkTables
 from src.component.threshholder import Threshholder
 from src.component.contour_finder import ContourFinder
 from src.component.double_contour_finder import DoubleContourFinder
@@ -9,35 +9,27 @@ from src.component.tilted_corner_finder import TiltedCornerFinder
 from src.component.corner_checker import CornerChecker
 from src.component.double_corner_checker import DoubleCornerChecker
 from src.component.pose_estimator import PoseEstimator
-import gen.python.pose_pb2 as pose
 import cv2 as cv
 import numpy as np
 
 # The (x,y,z) points for the corners of the vision targets, in the order top, right, bottom, left, in feet
-left_points = np.array([[-5.936295/12., 0, 0], [-4/12., 0.50076/12., 0], [-5.37709/12., 5.825572/12., 0], [-7.313385/12., 5.324812/12., 0]], np.float32)
-right_points = np.array([[5.936295/12., 0, 0], [7.313385/12., 5.324812/12., 0], [5.37709/12., 5.825572/12., 0], [4/12., 0.50076/12., 0]], np.float32)
-
-# The protobuf we're going to send to the RIO
-message = pose.CameraPose()
+left_points = np.array([[-5.936295, 0, 0], [-4, 0.50076, 0], [-5.37709, 5.825572, 0], [-7.313385, 5.324812, 0]], np.float32)
+right_points = np.array([[5.936295, 0, 0], [7.313385, 5.324812, 0], [5.37709, 5.825572, 0], [4, 0.50076, 0]], np.float32)
 
 # Define the threshholder. You may have to change the HSV bounds depending on lighting and which camera you're using.
-thresh = Threshholder(gaussian_size=5, erode_size=7, lower_hsv_bound=(40, 135, 55), upper_hsv_bound=(60, 255, 160))
-# thresh = Threshholder(gaussian_size=5, erode_size=10, lower_hsv_bound=(55, 0, 50), upper_hsv_bound=(90, 255, 200))
+# thresh = Threshholder(gaussian_size=5, erode_size=7, lower_hsv_bound=(40, 135, 55), upper_hsv_bound=(60, 255, 160))
+thresh = Threshholder(gaussian_size=5, erode_size=10, lower_hsv_bound=(55, 0, 50), upper_hsv_bound=(90, 255, 200))
 
 # Define the contour finder to find the outlines of the vision target.
 # contour_finder = ContourFinder(mode=cv.CHAIN_APPROX_SIMPLE)
 contour_finder = DoubleContourFinder(mode=cv.CHAIN_APPROX_SIMPLE)
 
-# Set up the ZMQ context, which is needed to make the socket.
-context = zmq.Context.instance()
-
-# Define the ZMQ socket as a pair socket, so the RIO and Jetson can freely send information back and forth.
-socket = context.socket(zmq.PAIR)
-
-# Connect to the RIO.
+# Set up the NetworkTables connection
 print("Connecting to server")
-socket.connect("tcp://10.4.49.2:5555")
+NetworkTables.initialize(server='10.4.49.2')
 print("Connected!")
+
+table = NetworkTables.getTable("SmartDashboard").getSubTable('jetson-vision')
 
 # Set up the VideoCapture we use as input, either as a pre-recorded video or a live camera stream.
 # cap = cv.VideoCapture("/home/nvidia/Downloads/my_video-1.mkv")  # Pre-recorded video
@@ -138,21 +130,15 @@ while cv.waitKey(15) != ord('q'):
                 frame = cv.drawMarker(frame, (right_corners[3][0], right_corners[3][1]), (0, 255, 255))
 
             if left_valid or right_valid:
-                # Transfer pose info from output matrix to protobuf
-                message.x = pose_mat[0][3]
-                message.y = pose_mat[1][3]
-                message.z = pose_mat[2][3]
-                message.yaw = math.atan2(pose_mat[1][0], pose_mat[0][0])
-                # print("Sending pose, x: " + str(message.x) + ", y: " + str(message.y) + ", z: " + str(
-                #     message.z) + ", yaw: " + str(message.yaw))
-
-                # Send the protocol buffer. SerializeToString() doesn't actualy make a string, but rather a byte array.
-                # socket.send(message.SerializeToString())
+                # Transfer pose info from output matrix to NetworkTables, after converting to feet
+                table.putNumber("x", pose_mat[0][3]/12.)
+                table.putNumber("y", pose_mat[1][3]/12.)
+                table.putNumber("z", pose_mat[2][3]/12.)
+                table.putNumber("yaw", math.atan2(pose_mat[1][0], pose_mat[0][0]))
 
         # Display the frame after possibly drawing on it
         cv.imshow("Video Capture", frame)
 
 cap.release()
 cv.destroyAllWindows()
-context.destroy()
 print("Should exit now.")

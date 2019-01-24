@@ -5,7 +5,6 @@ v4l2-ctl \
 --set-ctrl=saturation=200 \
 --set-ctrl=white_balance_temperature_auto=0 \
 --set-ctrl=power_line_frequency=0 \
---set-ctrl=white_balance_temperature=2800 \
 --set-ctrl=sharpness=50 \
 --set-ctrl=backlight_compensation=0 \
 --set-ctrl=exposure_auto=1 \
