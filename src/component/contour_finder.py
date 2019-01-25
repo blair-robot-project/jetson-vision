@@ -7,9 +7,13 @@ class ContourFinder:
         self.mode = mode
 
     def get_largest_contour(self, in_mat):
+        # Find the contours in the threshholded image
         _, contours, _ = cv.findContours(in_mat, cv.RETR_EXTERNAL, self.mode)
+
+        # Exit immediately if there aren't any
         if len(contours) == 0:
             return ()
+
         # Get the biggest contour
         longest = contours[0]
         for contour in contours:

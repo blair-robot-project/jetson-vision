@@ -13,7 +13,8 @@ class PoseEstimator:
         self.final = np.array([0])
 
     def get_pose(self, corners):
-        # _, rvec, tvec = cv.solvePnP(self.object_corners, np.array(corners), self.camera_matrix, self.dist_coeffs, flags=cv.SOLVEPNP_P3P)
+        # Run solvePnP then rearrange the matrix it gives to get one that's a 3x3 rotation matrix with a 3d position
+        # vector concatenated to it on the right, and the vector <0,0,0,1> appended to the bottom.
         _, rvec, tvec = cv.solvePnP(self.object_corners, np.array(corners), self.camera_matrix, self.dist_coeffs)
         zyx, _ = cv.Rodrigues(rvec)
         final = np.concatenate((zyx, tvec), axis=1)

@@ -2,7 +2,7 @@ import math
 
 import zmq
 from src.component.threshholder import Threshholder
-from src.component.contourfinder import ContourFinder
+from src.component.contour_finder import ContourFinder
 from src.component.corner_finder import CornerFinder
 from src.component.corner_checker import CornerChecker
 from src.component.pose_estimator import PoseEstimator
