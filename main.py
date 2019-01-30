@@ -13,9 +13,9 @@ import gen.python.pose_pb2 as pose
 import cv2 as cv
 import numpy as np
 
-# The (x,y,z) points for the corners of the vision targets, in the order top, right, bottom, left, in inches
-left_points = np.array([[-5.936295, 0, 0], [-4, 0.50076, 0], [-5.37709, 5.825572, 0], [-7.313385, 5.324812, 0]], np.float32)
-right_points = np.array([[5.936295, 0, 0], [7.313385, 5.324812, 0], [5.37709, 5.825572, 0], [4, 0.50076, 0]], np.float32)
+# The (x,y,z) points for the corners of the vision targets, in the order top, right, bottom, left, in feet
+left_points = np.array([[-5.936295/12., 0, 0], [-4/12., 0.50076/12., 0], [-5.37709/12., 5.825572/12., 0], [-7.313385/12., 5.324812/12., 0]], np.float32)
+right_points = np.array([[5.936295/12., 0, 0], [7.313385/12., 5.324812/12., 0], [5.37709/12., 5.825572/12., 0], [4/12., 0.50076/12., 0]], np.float32)
 
 # The protobuf we're going to send to the RIO
 message = pose.CameraPose()
