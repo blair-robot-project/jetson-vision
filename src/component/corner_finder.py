@@ -5,11 +5,11 @@ import math
 class CornerFinder:
 
     def __init__(self, width, height):
-        # The coordinates of the screen corners in the order: Bottom left, bottom right, top left, top right
-        self.corners = [np.array([0, 0]), np.array([width, 0]), np.array([0, height]), np.array([width, height])]
+        # The coordinates of the screen corners in the order: top left, top right, bottom right, bottom left
+        self.corners = [np.array([0, 0]), np.array([width, 0]), np.array([width, height]), np.array([0, height])]
 
     def get_corners(self, contour):
-        # We can find the corners of a quadrilateral with sides parallel to the edge of the screen b finding the
+        # We can find the corners of a quadrilateral with sides parallel to the edge of the screen by finding the
         # points on the contour that are closest to each corner of the screen.
 
         # Initialize the minimum distance to each corner, and which point is at that distance.
