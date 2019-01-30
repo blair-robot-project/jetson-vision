@@ -15,7 +15,7 @@ class DoubleContourFinder:
             return ()
         # Return the only contour if there's just one
         elif len(contours) == 1:
-            return contours[0]
+            return [contours[0]]
 
         # Get the two contours with the most points, meaning they're the most complicated.
         longest = []
@@ -28,7 +28,6 @@ class DoubleContourFinder:
             elif self.contour_comparator(contour, second):
                 second = contour
 
-        print(longest[0][0])
         # Return in order (left, right), and assume that one contour is entirely to the left of the other.
         if longest[0][0][0] < second[0][0][0]:
             return longest, second
