@@ -81,8 +81,8 @@ while cv.waitKey(15) != ord('q'):
         threshed = thresh.threshhold(frame)
         cv.imshow("Threshholded", threshed)
 
-        # Find the largest contour the camera can see.
-        cont = contour_finder.get_largest_contour(threshed)
+        # Find the most complex contour the camera can see.
+        cont = contour_finder.get_complicated_contour(threshed)
 
         # Only go on if we found a contour
         if cont is not None and len(cont) != 0:

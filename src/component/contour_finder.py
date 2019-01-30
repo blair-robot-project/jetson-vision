@@ -6,7 +6,7 @@ class ContourFinder:
     def __init__(self, mode):
         self.mode = mode
 
-    def get_largest_contour(self, in_mat):
+    def get_complicated_contour(self, in_mat):
         # Find the contours in the threshholded image
         _, contours, _ = cv.findContours(in_mat, cv.RETR_EXTERNAL, self.mode)
 
@@ -14,9 +14,9 @@ class ContourFinder:
         if len(contours) == 0:
             return ()
 
-        # Get the biggest contour
+        # Get the contour with the most points defining it, meaning it's the most complicated.
         longest = contours[0]
-        for contour in contours:
+        for contour in contours[1:]:
             if self.contour_comparator(contour, longest):
                 longest = contour
         return longest
