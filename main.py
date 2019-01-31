@@ -1,39 +1,31 @@
 import math
 
-import zmq
+from networktables import NetworkTables
 from src.component.threshholder import Threshholder
 from src.component.contour_finder import ContourFinder
 from src.component.corner_finder import CornerFinder
 from src.component.tilted_corner_finder import TiltedCornerFinder
 from src.component.corner_checker import CornerChecker
 from src.component.pose_estimator import PoseEstimator
-import gen.python.pose_pb2 as pose
 import cv2 as cv
 import numpy as np
 
 # The (x,y,z) points for the corners of the vision target, in the order top left, top right, bottom right, bottom left
 obj_points = np.array([[0, 0, 0], [2, 0, 0], [2, 5.75, 0], [0, 5.75, 0]], np.float32)
 
-# The protobuf we're going to send to the RIO
-message = pose.CameraPose()
-
 # Define the threshholder. You may have to change the HSV bounds depending on lighting and which camera you're using.
-thresh = Threshholder(gaussian_size=5, erode_size=7, lower_hsv_bound=(40, 135, 55), upper_hsv_bound=(60, 255, 160))
-# thresh = Threshholder(gaussian_size=5, erode_size=10, lower_hsv_bound=(55, 0, 50), upper_hsv_bound=(90, 255, 200))
+# thresh = Threshholder(gaussian_size=5, erode_size=7, lower_hsv_bound=(40, 135, 55), upper_hsv_bound=(60, 255, 160))
+thresh = Threshholder(gaussian_size=5, erode_size=10, lower_hsv_bound=(55, 0, 50), upper_hsv_bound=(90, 255, 200))
 
 # Define the contour finder to find the outlines of the vision target.
 contour_finder = ContourFinder(mode=cv.CHAIN_APPROX_SIMPLE)
 
-# Set up the ZMQ context, which is needed to make the socket.
-context = zmq.Context.instance()
-
-# Define the ZMQ socket as a pair socket, so the RIO and Jetson can freely send information back and forth.
-socket = context.socket(zmq.PAIR)
-
-# Connect to the RIO.
+# Set up the NetworkTables connection
 print("Connecting to server")
-socket.connect("tcp://10.4.49.2:5555")
+NetworkTables.initialize(server='10.4.49.2')
 print("Connected!")
+
+table = NetworkTables.getTable("SmartDashboard").getSubTable('jetson-vision')
 
 # Set up the VideoCapture we use as input, either as a pre-recorded video or a live camera stream.
 # cap = cv.VideoCapture("/home/nvidia/Downloads/my_video-1.mkv")  # Pre-recorded video
@@ -108,21 +100,15 @@ while cv.waitKey(15) != ord('q'):
                 # Get the pose estimate from the corners
                 pose_mat = pose_estimator.get_pose(points)
 
-                # Transfer pose info from output matrix to protobuf
-                message.x = pose_mat[0][3]
-                message.y = pose_mat[1][3]
-                message.z = pose_mat[2][3]
-                message.yaw = math.atan2(pose_mat[1][0], pose_mat[0][0])
-                # print("Sending pose, x: " + str(message.x) + ", y: " + str(message.y) + ", z: " + str(
-                #     message.z) + ", yaw: " + str(message.yaw))
-
-                # Send the protocol buffer. SerializeToString() doesn't actualy make a string, but rather a byte array.
-                socket.send(message.SerializeToString())
+                # Transfer pose info from output matrix to NetworkTables
+                table.putNumber("x", pose_mat[0][3])
+                table.putNumber("y", pose_mat[1][3])
+                table.putNumber("z", pose_mat[2][3])
+                table.putNumber("yaw", math.atan2(pose_mat[1][0], pose_mat[0][0]))
 
         # Display the frame after possibly drawing on it
         cv.imshow("Video Capture", frame)
 
 cap.release()
 cv.destroyAllWindows()
-context.destroy()
 print("Should exit now.")
